@@ -1,0 +1,33 @@
+<!-- src/app/components/cart/cart.component.html -->
+<div class="cart-container">
+  <h2>Your Cart</h2>
+  <div *ngIf="cartItems.length > 0; else emptyCart">
+    <table>
+      <tr>
+        <th>Product</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Subtotal</th>
+        <th></th>
+      </tr>
+      <tr *ngFor="let item of cartItems">
+        <td>{{ item.product.title }}</td>
+        <td>${{ item.product.price }}</td>
+        <td>{{ item.quantity }}</td>
+        <td>${{ item.product.price * item.quantity }}</td>
+        <td><button mat-button color="warn" (click)="removeItem(item.product.id)">Remove</button></td>
+      </tr>
+      <tr>
+        <td colspan="3"><strong>Total</strong></td>
+        <td><strong>${{ totalPrice }}</strong></td>
+        <td></td>
+      </tr>
+    </table>
+    <button mat-raised-button color="primary" (click)="proceedToCheckout()" [disabled]="!(auth.currentUser)">
+      Proceed to Checkout
+    </button>
+  </div>
+  <ng-template #emptyCart>
+    <p class="empty-cart-message">Your cart is empty.</p>
+  </ng-template>
+</div>

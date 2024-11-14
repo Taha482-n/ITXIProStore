@@ -1,0 +1,124 @@
+/* General Header Toolbar Styles */
+.header-toolbar {
+  margin: 0;
+  padding: 0 16px; /* Adjust side padding as needed */
+  background-color: #2766DA; /* Primary color */
+  color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  width: 100%; /* Ensure toolbar spans full width */
+  box-sizing: border-box;
+}
+/* Logo Styling */
+.header-toolbar .logo {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #ffffff;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.header-toolbar .logo:hover {
+  color: #d4e1f3;
+}
+
+/* Spacer for Alignment */
+.spacer {
+  flex: 1;
+}
+
+/* Button and Icon Styling */
+.header-toolbar button,
+.header-toolbar{
+  color: #ffffff;
+  font-weight: 500;
+  text-transform: uppercase;
+  margin-left: 8px;
+}
+
+/* Button Hover Effect */
+.header-toolbar button:hover,
+.header-toolbar mat-icon-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Icon Styling */
+.header-toolbar{
+  color: #ffffff;
+  font-size: 1.4em;
+  vertical-align: middle;
+}
+
+/* Badge Styling for Cart Icon */
+.mat-badge-content {
+  background-color: #ff5252; /* Accent color for the badge */
+  color: #ffffff;
+  font-size: 0.75em;
+  font-weight: bold;
+  border-radius: 50%;
+}
+
+/* Dropdown Menu Styling */
+mat-menu {
+  background-color: #2766DA;
+  color: #ffffff;
+  border-radius: 8px;
+}
+
+mat-menu .mat-menu-item {
+  font-weight: 500;
+  padding: 12px 16px;
+}
+
+mat-menu .mat-menu-item:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+mat-menu mat-icon {
+  margin-right: 8px;
+  color: #d4e1f3;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  /* Stack elements vertically on smaller screens */
+  .header-toolbar {
+    padding: 8px;
+  }
+
+  /* Adjust logo font size for smaller screens */
+  .header-toolbar .logo {
+    font-size: 1em;
+  }
+
+  /* Align buttons to the center for mobile */
+  .header-toolbar button,
+  .header-toolbar mat-icon-button {
+    margin: 8px 0;
+  }
+
+  /* Icon-only buttons for compact view */
+  .header-toolbar button span {
+    display: none; /* Hide text in smaller view */
+  }
+
+  .header-toolbar mat-icon {
+    margin: 0;
+  }
+
+  /* Cart button to show icon only */
+  .header-toolbar button[routerLink="/cart"] mat-icon {
+    display: inline;
+  }
+}
+
+@media (min-width: 769px) {
+  /* Display button text and icon for larger screens */
+  .header-toolbar button span {
+    display: inline;
+  }
+}

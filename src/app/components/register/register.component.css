@@ -1,0 +1,85 @@
+/* General Card Styling */
+.register-card {
+  max-width: 400px;
+  margin: 40px auto;
+  padding: 24px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.register-card h2 {
+  text-align: center;
+  color: #2766DA;
+  font-size: 1.8em;
+  margin-bottom: 16px;
+}
+
+/* Form Field Styling */
+mat-form-field {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+mat-label {
+  font-weight: 500;
+  color: #555;
+}
+
+input[matInput] {
+  color: #333;
+}
+
+/* Button Styling */
+button[type="submit"] {
+  width: 100%;
+  padding: 12px;
+  font-size: 1em;
+  font-weight: 600;
+}
+
+button[disabled] {
+  background-color: rgba(39, 102, 218, 0.6); /* Faded primary color */
+}
+
+/* Error Message Styling */
+.error-message {
+  color: #d32f2f; /* Red for error text */
+  font-size: 0.9em;
+  margin-top: 12px;
+  text-align: center;
+}
+
+/* Link Styling */
+.register-card p {
+  text-align: center;
+  font-size: 0.9em;
+  color: #555;
+  margin-top: 16px;
+}
+
+.register-card a {
+  color: #2766DA;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.register-card a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive Styling */
+@media (max-width: 600px) {
+  .register-card {
+    padding: 16px;
+    margin: 20px auto;
+  }
+
+  .register-card h2 {
+    font-size: 1.6em;
+  }
+
+  button[type="submit"] {
+    padding: 10px;
+    font-size: 0.95em;
+  }
+}

@@ -1,0 +1,34 @@
+<!-- src/app/components/home/home.component.html -->
+<div style="margin-top: 20px;"></div>
+<h2>Weather Data</h2>
+<div class="cards-container">
+  <app-card
+    *ngFor="let card of paginatedWeatherCards"
+    [title]="card.title"
+    [subtitle]="card.subtitle"
+    [content]="card.content"
+  ></app-card>
+</div>
+
+<mat-paginator #weatherPaginator
+               [length]="weatherTotalSize"
+               [pageSize]="weatherPageSize"
+               [pageSizeOptions]="[4, 8, 12]"
+               (page)="onWeatherPageChange($event)">
+</mat-paginator>
+
+<h2>Products</h2>
+<div class="products-container">
+  <app-product-card
+    *ngFor="let product of paginatedProducts"
+    [product]="product"
+    [addToCart]="addToCart"
+  ></app-product-card>
+</div>
+
+<mat-paginator #productsPaginator
+               [length]="productsTotalSize"
+               [pageSize]="productsPageSize"
+               [pageSizeOptions]="[4, 8, 12]"
+               (page)="onProductsPageChange($event)">
+</mat-paginator>

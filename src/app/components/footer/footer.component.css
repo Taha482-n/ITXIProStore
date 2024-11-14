@@ -1,0 +1,44 @@
+/* General Footer Styles */
+.footer {
+  background-color: #2766DA; /* Matches primary color */
+  color: #ffffff;
+  padding: 16px 32px;
+  text-align: center;
+  position: relative;
+  bottom: 0;
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer-content p {
+  margin: 0;
+  font-size: 1em;
+  font-weight: 500;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* Footer Hover Effect for Text */
+.footer-content p:hover {
+  color: #d4e1f3;
+  transition: color 0.3s ease;
+}
+
+/* Responsive Footer Styling */
+@media (min-width: 768px) {
+  .footer-content {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .footer-content p {
+    font-size: 1.1em;
+  }
+}

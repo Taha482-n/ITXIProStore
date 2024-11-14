@@ -1,0 +1,91 @@
+/* Cart Component Styles */
+.cart-container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.cart-container h2 {
+  font-size: 1.5em;
+  color: #2766DA;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Table Styles */
+.cart-container table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.cart-container th, .cart-container td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #e0e0e0;
+  font-size: 1em;
+  color: #333;
+}
+
+.cart-container th {
+  font-weight: bold;
+  color: #555;
+}
+
+.cart-container td {
+  vertical-align: middle;
+}
+
+/* Subtotal Column */
+.cart-container td:nth-child(4), .cart-container th:nth-child(4) {
+  text-align: right;
+}
+
+.cart-container .remove-button {
+  color: #ff5252;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.cart-container .remove-button:hover {
+  background-color: rgba(255, 82, 82, 0.1);
+}
+
+/* Total Row */
+.cart-container tr:last-child td {
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+.cart-container tr:last-child td:nth-child(4) {
+  color: #2766DA;
+}
+
+/* Checkout Button */
+.cart-container button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  font-size: 1em;
+  color: #ffffff;
+  background-color: #2766DA;
+  border-radius: 8px;
+  text-transform: uppercase;
+  transition: background-color 0.3s ease;
+  margin-top: 20px;
+}
+
+.cart-container button:hover {
+  background-color: #1c4fa1;
+}
+
+/* Empty Cart Message */
+.empty-cart-message {
+  font-size: 1.2em;
+  text-align: center;
+  color: #777;
+  margin: 20px 0;
+}
