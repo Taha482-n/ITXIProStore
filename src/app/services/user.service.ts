@@ -1,42 +1,43 @@
 // src/app/services/user.service.ts
-import { Injectable } from '@angular/core';
-import { Auth } from '@angular/fire/auth';
+import { Injectable, signal } from '@angular/core';
+import { Auth, onAuthStateChanged, User } from '@angular/fire/auth';
 import { Firestore, doc, getDoc } from '@angular/fire/firestore';
-import { Observable, from, of } from 'rxjs';
-import { switchMap, map } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class UserService {
-  user$: Observable<any>;
+  authStatus = signal<User | null>(null); // Signal for auth status
+  role = signal<string | null>(null); // Signal for user role
 
   constructor(private auth: Auth, private firestore: Firestore) {
-    this.user$ = new Observable((observer) => {
-      this.auth.onAuthStateChanged((user) => {
-        observer.next(user);
-      });
+    onAuthStateChanged(this.auth, (user) => {
+      this.authStatus.set(user);
+      if (user) {
+        this.fetchRole(user.uid); // Set role based on Firestore data
+      } else {
+        this.role.set(null);
+      }
     });
   }
 
-  getCurrentUserRole(): Observable<string | null> {
-    return this.user$.pipe(
-      switchMap((user) => {
-        if (user) {
-          const docRef = doc(this.firestore, `users/${user.uid}`);
-          return from(getDoc(docRef)).pipe(
-            map((docSnap) => {
-              if (docSnap.exists()) {
-                const data = docSnap.data();
-                return data['role'] || 'user'; // Default to 'user' role
-              }
-              return 'user'; // Default to 'user' role
-            })
-          );
-        } else {
-          return of(null);
-        }
-      })
-    );
+  public async fetchRole(userId: string): Promise<void> {
+    const docRef = doc(this.firestore, `users/${userId}`);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      const data = docSnap.data();
+      this.role.set(data['role'] || 'user'); // Default role is 'user'
+    } else {
+      this.role.set('user');
+    }
+  }
+
+  // Accessor methods for components to read signals
+  get userRole(): string | null {
+    return this.role();
+  }
+
+  get isAuthenticated(): boolean {
+    return !!this.authStatus();
   }
 }

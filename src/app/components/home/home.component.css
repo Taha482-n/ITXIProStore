@@ -122,3 +122,25 @@ h2 {
 .mat-paginator .mat-paginator-navigation-previous {
   color: #2766DA;
 }
+
+.search-container {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.search-container input {
+  width: 100%;
+  max-width: 400px;
+  padding: 10px;
+  font-size: 1em;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  outline: none;
+  transition: box-shadow 0.2s ease;
+}
+
+.search-container input:focus {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}

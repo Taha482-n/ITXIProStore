@@ -6,25 +6,23 @@
   <span class="spacer"></span>
 
   <!-- Cart Icon with Badge -->
-  <button mat-icon-button routerLink="/cart" [matBadge]="(cartItemCount$ | async) || 0" matBadgeColor="accent" matBadgeHidden="!(cartItemCount$ | async)">
+  <button mat-icon-button routerLink="/cart" [matBadge]="cartItemCount || 0" matBadgeColor="accent" matBadgeHidden="cartItemCount === 0">
     <mat-icon>shopping_cart</mat-icon>
   </button>
 
   <!-- User Menu: Shows Login/Register for guests or Account options for logged-in users -->
-  <ng-container *ngIf="user$ | async as user; else guestLinks">
+  <ng-container *ngIf="isAuthenticated; else guestLinks">
     <mat-menu #accountMenu="matMenu">
-      <ng-container *ngIf="role$ | async as role">
-        <ng-container *ngIf="role === 'admin' || role === 'weather-manager'">
-          <!-- Admin Options -->
-          <button mat-menu-item *ngIf="role === 'admin'" routerLink="/admin">
-            <mat-icon>supervisor_account</mat-icon>
-            <span>Manage Users</span>
-          </button>
-          <button mat-menu-item routerLink="/manage-weather">
-            <mat-icon>cloud</mat-icon>
-            <span>Manage Weather</span>
-          </button>
-        </ng-container>
+      <ng-container *ngIf="userRole === 'admin' || userRole === 'weather-manager'">
+        <!-- Admin Options -->
+        <button mat-menu-item *ngIf="userRole === 'admin'" routerLink="/admin">
+          <mat-icon>supervisor_account</mat-icon>
+          <span>Manage Users</span>
+        </button>
+        <button mat-menu-item routerLink="/manage-weather">
+          <mat-icon>cloud</mat-icon>
+          <span>Manage Weather</span>
+        </button>
       </ng-container>
       <!-- Logout Button -->
       <button mat-menu-item (click)="logout()">

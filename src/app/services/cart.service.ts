@@ -1,38 +1,40 @@
 // src/app/services/cart.service.ts
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { Product } from '../models/product.model';
 import { CartItem } from '../models/cart-item.model';
-import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class CartService {
-  private cart = new BehaviorSubject<CartItem[]>([]);
-  cart$ = this.cart.asObservable();
+  cartItems = signal<CartItem[]>([]); // Cart items as a Signal
 
   addToCart(product: Product) {
-    const currentCart = this.cart.value.slice();
-    const itemIndex = currentCart.findIndex(
-      (item) => item.product.id === product.id
-    );
+    const currentCart = [...this.cartItems()];
+    const itemIndex = currentCart.findIndex((item) => item.product.id === product.id);
 
     if (itemIndex > -1) {
       currentCart[itemIndex].quantity += 1;
     } else {
       currentCart.push({ product, quantity: 1 });
     }
-    this.cart.next(currentCart);
+    this.cartItems.set(currentCart);
   }
 
   removeFromCart(productId: number) {
-    const currentCart = this.cart.value.filter(
-      (item) => item.product.id !== productId
-    );
-    this.cart.next(currentCart);
+    const updatedCart = this.cartItems().filter((item) => item.product.id !== productId);
+    this.cartItems.set(updatedCart);
   }
 
   clearCart() {
-    this.cart.next([]);
+    this.cartItems.set([]);
+  }
+
+  get totalItems(): number {
+    return this.cartItems().reduce((acc, item) => acc + item.quantity, 0);
+  }
+
+  get totalPrice(): number {
+    return this.cartItems().reduce((acc, item) => acc + item.product.price * item.quantity, 0);
   }
 }
