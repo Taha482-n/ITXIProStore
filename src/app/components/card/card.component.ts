@@ -1,4 +1,3 @@
-// src/app/components/card/card.component.ts
 import { Component, Input } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
@@ -11,7 +10,8 @@ import { CommonModule } from '@angular/common';
   imports: [MatCardModule, CommonModule],
 })
 export class CardComponent {
-  @Input() title: string = 'Default Title';
-  @Input() subtitle: string = ''; // New input for subtitle
-  @Input() content: string = 'Default content goes here.';
+  @Input() title: string = 'Default Title';        // Default title if none provided
+  @Input() subtitle: string = '';                   // Optional subtitle
+  @Input() content: string = 'Default content goes here.'; // Default content
+
 }

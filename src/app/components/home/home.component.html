@@ -1,24 +1,3 @@
-<div style="margin-top: 20px;"></div>
-
-<h2>Weather Data</h2>
-<div class="cards-container">
-  <app-card
-    *ngFor="let card of paginatedWeatherCards()"
-    [title]="card.title"
-    [subtitle]="card.subtitle"
-    [content]="card.content"
-  ></app-card>
-</div>
-
-<mat-paginator
-  [length]="weatherCards().length"
-  [pageSize]="weatherPageSize"
-  [pageSizeOptions]="[4, 8, 12]"
-  (page)="onWeatherPageChange($event)">
-</mat-paginator>
-
-<h2>Products</h2>
-
 <!-- Search Bar for Products -->
 <div class="search-container">
   <input
@@ -33,13 +12,28 @@
   <app-product-card
     *ngFor="let product of paginatedProducts()"
     [product]="product"
-    [addToCart]="addToCart"
+    (addToCart)="addToCart($event)"
   ></app-product-card>
 </div>
 
-<mat-paginator
-  [length]="filteredProducts().length"
-  [pageSize]="productsPageSize"
-  [pageSizeOptions]="[4, 8, 12]"
-  (page)="onProductsPageChange($event)">
-</mat-paginator>
+<!-- Load More Button -->
+<div class="load-more-container">
+  <button
+    class="load-more-btn"
+    *ngIf="loadedProductsCount < filteredProducts().length"
+    (click)="loadMoreProducts()"
+  >
+    Load More
+  </button>
+</div>
+
+<div style="margin-top: 100px;"></div>
+
+<div class="cards-container">
+  <app-card
+    *ngFor="let card of weatherCards()"
+    [title]="card.title"
+    [subtitle]="card.subtitle"
+    [content]="card.content"
+  ></app-card>
+</div>

@@ -1,5 +1,4 @@
-// src/app/components/product-card/product-card.component.ts
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Product } from '../../models/product.model';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
@@ -9,15 +8,14 @@ import { MatButtonModule } from '@angular/material/button';
   templateUrl: './product-card.component.html',
   styleUrls: ['./product-card.component.css'],
   standalone: true,
-  imports: [MatCardModule, MatButtonModule]
+  imports: [MatCardModule, MatButtonModule],
 })
 export class ProductCardComponent {
-  @Input() product!: Product;
-  @Input() addToCart!: (product: Product) => void;
+  @Input() product!: Product; // The product to be displayed
+  @Output() addToCart = new EventEmitter<Product>(); // EventEmitter for addToCart
 
+  // Method to emit the addToCart event
   onAddToCart() {
-    if (this.addToCart) {
-      this.addToCart(this.product);
-    }
+    this.addToCart.emit(this.product);
   }
 }

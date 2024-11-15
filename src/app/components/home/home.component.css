@@ -144,3 +144,40 @@ h2 {
 .search-container input:focus {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
+
+.selection {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.selection button {
+  padding: 10px;
+  background-color: #2766DA;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.selection button.active {
+  background-color: #174a94;
+}
+
+.load-more-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.load-more-btn {
+  padding: 10px 20px;
+  font-size: 1.1em;
+  background-color: #2766DA;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.load-more-btn:hover {
+  background-color: #1c4fa1;
+}

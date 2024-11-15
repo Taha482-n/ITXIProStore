@@ -31,15 +31,20 @@ export class AdminComponent implements OnInit {
 
   roles: string[] = ['user', 'weather-manager', 'admin'];
   displayedColumns: string[] = ['email', 'role']; 
+  
   constructor(private firestore: Firestore) {}
 
   ngOnInit() {
+    // Initialize Firestore collection reference for 'users'
     const usersCollection = collection(this.firestore, 'users');
+    // Get real-time data from Firestore collection
     this.users$ = collectionData(usersCollection, { idField: 'uid' }) as Observable<User[]>;
   }
 
   async changeRole(user: User, newRole: string) {
+    // Get Firestore document reference for the user
     const userDocRef = doc(this.firestore, 'users', user.uid);
+    // Update the user's role in Firestore
     await updateDoc(userDocRef, { role: newRole });
   }
 }
