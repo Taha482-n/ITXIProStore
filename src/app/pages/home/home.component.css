@@ -7,175 +7,55 @@ h2 {
   text-align: center;
 }
 
-/* Container Styles */
-.cards-container,
-.products-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-  justify-content: center;
-  margin-bottom: 30px;
-}
-
-/* Weather Card Styles */
-.custom-card {
-  width: 300px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  overflow: hidden;
-  background-color: #f7faff;
-  transition: transform 0.3s ease;
-}
-
-.custom-card:hover {
-  transform: scale(1.05);
-}
-
-.custom-card mat-card-header {
-  background-color: #2766DA;
-  color: white;
-}
-
-.custom-card mat-card-title {
-  font-size: 1.2em;
-  font-weight: bold;
-}
-
-.custom-card mat-card-subtitle {
-  font-size: 0.9em;
-  color: #e0e7ff;
-}
-
-/* Product Card Styles */
-.products-container .product-card {
-  width: 220px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  background-color: #ffffff;
-  transition: transform 0.3s ease;
-  margin-bottom: 15px;
-  position: relative;
-}
-
-.products-container .product-card:hover {
-  transform: scale(1.05);
-}
-
-.product-card img {
-  width: 100%;
-  height: 150px;
-  object-fit: contain;
-  border-radius: 4px;
-  margin-bottom: 10px;
-}
-
-.product-card h3 {
-  font-size: 1.1em;
-  font-weight: bold;
-  color: #333;
-  text-align: center;
-  margin: 5px 0;
-}
-
-.product-card p {
-  font-size: 0.9em;
-  color: #666;
-  margin: 5px 0;
-}
-
-.product-card .price {
-  font-size: 1em;
-  font-weight: bold;
-  color: #2766DA;
-}
-
-.product-card button {
-  margin-top: 10px;
-  width: 100%;
-  font-weight: bold;
-  background-color: #2766DA;
-  color: #fff;
-}
-
-.product-card button:hover {
-  background-color: #1c4fa1;
-}
-
-/* Paginator Styles */
-.mat-paginator {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-.mat-paginator .mat-paginator-range-label,
-.mat-paginator .mat-paginator-page-size {
-  font-size: 0.9em;
-  color: #333;
-}
-
-.mat-paginator .mat-paginator-navigation-next,
-.mat-paginator .mat-paginator-navigation-previous {
-  color: #2766DA;
-}
-
+/* Search Bar Styles */
+/* Search Bar Styles */
 .search-container {
   display: flex;
   justify-content: center;
-  margin: 20px 0;
+  margin: 30px 0; /* Added more spacing */
 }
 
 .search-container input {
   width: 100%;
-  max-width: 400px;
-  padding: 10px;
-  font-size: 1em;
+  max-width: 600px; /* Increased width for better visibility */
+  padding: 15px; /* Larger padding for a bigger field */
+  font-size: 1.1em; /* Increased font size for readability */
   border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 10px; /* Slightly more rounded corners */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   outline: none;
-  transition: box-shadow 0.2s ease;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
 .search-container input:focus {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  border-color: #2766DA;
 }
 
-.selection {
+/* Products Container */
+.products-container {
   display: flex;
-  justify-content: space-around;
-  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin: 20px 0;
 }
 
-.selection button {
-  padding: 10px;
-  background-color: #2766DA;
-  color: white;
-  border: none;
-  cursor: pointer;
-}
-
-.selection button.active {
-  background-color: #174a94;
-}
-
+/* Load More Button */
 .load-more-container {
   text-align: center;
-  margin-top: 20px;
+  margin-top: 30px;
 }
 
 .load-more-btn {
-  padding: 10px 20px;
+  padding: 12px 25px;
   font-size: 1.1em;
   background-color: #2766DA;
   color: white;
   border: none;
   cursor: pointer;
-  border-radius: 4px;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
 }
 
 .load-more-btn:hover {

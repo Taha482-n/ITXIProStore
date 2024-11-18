@@ -1,11 +1,16 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-access-denied',
-  template: `
-    <h2>Access Denied</h2>
-    <p>You do not have permission to view this page.</p>
-  `,
+  templateUrl: './access-denied.component.html',
+  styleUrls: ['./access-denied.component.css'],
   standalone: true,
 })
-export class AccessDeniedComponent {}
+export class AccessDeniedComponent {
+  constructor(private router: Router) {}
+
+  goBack(): void {
+    this.router.navigate(['/home']);
+  }
+}

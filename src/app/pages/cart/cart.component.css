@@ -1,17 +1,23 @@
-/* Cart Component Styles */
 .cart-container {
-  max-width: 800px;
+  max-width: 1200px;
   margin: 20px auto;
   padding: 20px;
-  background-color: #f9f9f9;
+  background-color: #ffffff;
   border-radius: 8px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
 }
 
 .cart-container h2 {
-  font-size: 1.5em;
+  font-size: 2rem;
   color: #2766DA;
   text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Table Container for Responsiveness */
+.table-container {
+  overflow-x: auto;
+  width: 100%;
   margin-bottom: 20px;
 }
 
@@ -19,14 +25,14 @@
 .cart-container table {
   width: 100%;
   border-collapse: collapse;
-  margin-bottom: 20px;
+  min-width: 600px; /* Ensures table doesn't shrink too much on mobile */
 }
 
 .cart-container th, .cart-container td {
   padding: 12px;
   text-align: left;
   border-bottom: 1px solid #e0e0e0;
-  font-size: 1em;
+  font-size: 1rem;
   color: #333;
 }
 
@@ -44,32 +50,35 @@
   text-align: right;
 }
 
-.cart-container .remove-button {
+/* Remove Button */
+.remove-button {
+  background: none;
+  border: none;
   color: #ff5252;
   font-weight: bold;
   cursor: pointer;
 }
 
-.cart-container .remove-button:hover {
-  background-color: rgba(255, 82, 82, 0.1);
+.remove-button:hover {
+  text-decoration: underline;
 }
 
 /* Total Row */
-.cart-container tr:last-child td {
+.cart-container tfoot tr td {
   font-weight: bold;
-  font-size: 1.1em;
+  font-size: 1.1rem;
 }
 
-.cart-container tr:last-child td:nth-child(4) {
+.cart-container tfoot tr td:nth-child(4) {
   color: #2766DA;
+  text-align: right;
 }
 
 /* Checkout Button */
 .cart-container button {
   display: block;
   width: 100%;
-  padding: 10px;
-  font-size: 1em;
+  font-size: 1rem;
   color: #ffffff;
   background-color: #2766DA;
   border-radius: 8px;
@@ -84,8 +93,33 @@
 
 /* Empty Cart Message */
 .empty-cart-message {
-  font-size: 1.2em;
+  font-size: 1.2rem;
   text-align: center;
   color: #777;
   margin: 20px 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .cart-container h2 {
+    font-size: 1.5rem;
+  }
+
+  .cart-container table {
+    min-width: 100%;
+  }
+
+  .cart-container th, .cart-container td {
+    font-size: 0.9rem;
+    padding: 10px;
+  }
+
+  .cart-container button {
+    font-size: 0.9rem;
+    padding: 10px;
+  }
+
+  .empty-cart-message {
+    font-size: 1rem;
+  }
 }

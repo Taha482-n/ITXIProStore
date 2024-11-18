@@ -1,15 +1,17 @@
-import { Component, OnInit, signal, computed } from '@angular/core';
+import { Component, OnInit, signal, computed, effect } from '@angular/core';
 import { Auth, signOut } from '@angular/fire/auth';
 import { Router } from '@angular/router';
-import { UserService } from '../../services/user.service';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
-import { CartService } from '../../services/cart.service';
 import { MatBadgeModule } from '@angular/material/badge';
+
+import { WeatherService } from '../../services/weather.service';
+import { CartService } from '../../services/cart.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-header',
@@ -17,9 +19,9 @@ import { MatBadgeModule } from '@angular/material/badge';
   styleUrls: ['./header.component.css'],
   standalone: true,
   imports: [
-    MatToolbarModule,
     CommonModule,
     RouterModule,
+    MatToolbarModule,
     MatButtonModule,
     MatMenuModule,
     MatIconModule,
@@ -27,24 +29,75 @@ import { MatBadgeModule } from '@angular/material/badge';
   ],
 })
 export class HeaderComponent implements OnInit {
-  // Reactive cart item count using Angular Signals
-  cartItemCount = computed(() => {
-    const count = this.cartService.cartItems().reduce((acc, item) => acc + item.quantity, 0);
-    console.log('Cart Item Count Updated:', count); // Log the computed value
-    return count;
-  });
+  cartItemCount = computed(() =>
+    this.cartService.cartItems().reduce((acc, item) => acc + item.quantity, 0)
+  );
+  currentWeather = signal<string | null>(null);
+  isBurgerMenuOpen = signal<boolean>(false);
+  isSmallScreen = signal<boolean>(window.innerWidth <= 768); // Detect screen size
 
   constructor(
     private auth: Auth,
     private router: Router,
     public userService: UserService,
-    public cartService: CartService
+    public cartService: CartService,
+    private weatherService: WeatherService
   ) {}
 
   ngOnInit() {
-    // Log initial cart items and item count for debugging
-    console.log('Initial Cart Items:', this.cartService.cartItems());
-    console.log('Initial Cart Item Count:', this.cartItemCount());
+    this.weatherService.fetchWeatherData();
+    this.startWeatherRotation();
+
+    // Add event listener for screen resize
+    window.addEventListener('resize', this.updateScreenSize.bind(this));
+  }
+
+  toggleBurgerMenu() {
+    this.isBurgerMenuOpen.set(!this.isBurgerMenuOpen());
+  }
+
+  updateScreenSize() {
+    this.isSmallScreen.set(window.innerWidth <= 768);
+    if (!this.isSmallScreen()) {
+      this.isBurgerMenuOpen.set(false); // Automatically close the burger menu for larger screens
+    }
+  }
+
+  startWeatherRotation() {
+    let index = 0;
+    setInterval(() => {
+      const weatherData = this.weatherService.weatherCards();
+      if (weatherData.length > 0) {
+        const { temperature, time } = weatherData[index];
+        this.currentWeather.set(`Temp: ${temperature}, Time: ${time}`);
+        index = (index + 1) % weatherData.length;
+      }
+    }, 3000);
+  }
+
+  updateWeather(option: string) {
+    if (this.isAdminOrWeatherManager) {
+      this.weatherService.setWeatherOption(option);
+      this.weatherService.fetchWeatherData();
+    }
+  }
+
+  simplifiedWeather(): string | null {
+    const current = this.currentWeather();
+    if (current) {
+      const parts = current.split(', ');
+      return parts[0]; // Only show "Temp: value"
+    }
+    return null;
+  }
+
+  async logout() {
+    await signOut(this.auth);
+    this.router.navigate(['/home']);
+  }
+
+  get isAdminOrWeatherManager(): boolean {
+    return this.userRole === 'admin' || this.userRole === 'weather-manager';
   }
 
   get userRole(): string | null {
@@ -53,10 +106,5 @@ export class HeaderComponent implements OnInit {
 
   get isAuthenticated(): boolean {
     return this.userService.isAuthenticated;
-  }
-
-  async logout() {
-    await signOut(this.auth);
-    this.router.navigate(['/home']);
   }
 }

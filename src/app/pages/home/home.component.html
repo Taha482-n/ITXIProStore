@@ -1,39 +1,25 @@
-<!-- Search Bar for Products -->
+<!-- Search Bar -->
 <div class="search-container">
   <input
     type="text"
-    placeholder="Search products..."
+    placeholder="Search for products..."
     (input)="onSearchChange($event)"
     class="search-bar"
   />
 </div>
 
+<!-- Product Cards -->
 <div class="products-container">
   <app-product-card
-    *ngFor="let product of paginatedProducts()"
+    *ngFor="let product of paginatedProducts"
     [product]="product"
-    (addToCart)="addToCart($event)"
+    (addToCart)="addToCart(product)"
   ></app-product-card>
 </div>
 
 <!-- Load More Button -->
-<div class="load-more-container">
-  <button
-    class="load-more-btn"
-    *ngIf="loadedProductsCount < filteredProducts().length"
-    (click)="loadMoreProducts()"
-  >
+<div class="load-more-container" *ngIf="paginatedProducts.length < productService.products.length">
+  <button class="load-more-btn" (click)="loadMoreProducts()">
     Load More
   </button>
-</div>
-
-<div style="margin-top: 100px;"></div>
-
-<div class="cards-container">
-  <app-card
-    *ngFor="let card of weatherCards()"
-    [title]="card.title"
-    [subtitle]="card.subtitle"
-    [content]="card.content"
-  ></app-card>
 </div>

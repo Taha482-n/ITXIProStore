@@ -5,7 +5,6 @@ import { RoleGuard } from '../guards/role.guard';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { HomeComponent } from './pages/home/home.component';
-import { WeatherManagerComponent } from './pages/weather-manager/weather-manager.component';
 import { CartComponent } from './pages/cart/cart.component';
 
 export const routes: Routes = [
@@ -15,12 +14,7 @@ export const routes: Routes = [
     canActivate: [RoleGuard],
     data: { roles: ['admin'] },
   },
-  {
-    path: 'manage-weather',
-    component: WeatherManagerComponent,
-    canActivate: [RoleGuard],
-    data: { roles: ['admin', 'weather-manager'] },
-  },
+
   { path: 'access-denied', component: AccessDeniedComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },

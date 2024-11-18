@@ -1,58 +1,102 @@
 <mat-toolbar color="primary" class="header-toolbar">
-  <!-- Clickable Logo to go to Home -->
-  <button mat-button class="logo" routerLink="/home">
-    itxi
-  </button>
+  <!-- Logo -->
+  <button mat-button class="logo" routerLink="/home">ITXI</button>
   <span class="spacer"></span>
 
-  <!-- Cart Icon with Badge -->
-  <button mat-icon-button
-          routerLink="/cart"
-          [matBadge]="cartItemCount() || 0"
-          matBadgeColor="accent"
-          matBadgeHidden="cartItemCount() === 0">
-    <mat-icon>shopping_cart</mat-icon>
-  </button>
+  <!-- Weather Display -->
+  <div class="weather-display">
+    <mat-icon>cloud</mat-icon>
+    <span *ngIf="!isSmallScreen()">{{ currentWeather() }}</span>
+    <span *ngIf="isSmallScreen()">{{ simplifiedWeather() }}</span>
+  </div>
 
-  <!-- User Menu: Shows Login/Register for guests or Account options for logged-in users -->
-  <ng-container *ngIf="isAuthenticated; else guestLinks">
-    <mat-menu #accountMenu="matMenu">
-      <ng-container *ngIf="userRole === 'admin' || userRole === 'weather-manager'">
-        <!-- Admin Options -->
-        <button mat-menu-item *ngIf="userRole === 'admin'" routerLink="/admin">
-          <mat-icon>supervisor_account</mat-icon>
-          <span>Manage Users</span>
-        </button>
-        <button mat-menu-item routerLink="/manage-weather">
-          <mat-icon>cloud</mat-icon>
-          <span>Manage Weather</span>
-        </button>
-      </ng-container>
-      <!-- Logout Button -->
-      <button mat-menu-item (click)="logout()">
-        <mat-icon>logout</mat-icon>
-        <span>Logout</span>
-      </button>
-    </mat-menu>
+  <!-- Icons for Larger Screens -->
+  <div class="icon-container" *ngIf="!isSmallScreen()">
+    <button mat-icon-button routerLink="/cart" aria-label="Cart">
+      <mat-icon>shopping_cart</mat-icon>
+      <span *ngIf="cartItemCount() > 0" class="badge">{{ cartItemCount() }}</span>
+    </button>
     <button mat-icon-button [matMenuTriggerFor]="accountMenu" aria-label="Account Menu">
       <mat-icon>account_circle</mat-icon>
     </button>
-  </ng-container>
+  </div>
 
-  <!-- Guest Links: Login and Register inside Account Icon Menu -->
+  <!-- Burger Menu Button for Small Screens -->
+  <button mat-icon-button class="burger-button" *ngIf="isSmallScreen()" (click)="toggleBurgerMenu()">
+    <mat-icon>menu</mat-icon>
+  </button>
+</mat-toolbar>
+
+<!-- Account Menu -->
+<mat-menu #accountMenu="matMenu">
+  <ng-container *ngIf="isAdminOrWeatherManager">
+    <button mat-menu-item routerLink="/admin">
+      <mat-icon>supervisor_account</mat-icon>
+      <span>Manage Users</span>
+    </button>
+    <button mat-menu-item (click)="updateWeather('current')">
+      <mat-icon>cloud</mat-icon>
+      <span>Current Weather</span>
+    </button>
+    <button mat-menu-item (click)="updateWeather('past')">
+      <mat-icon>history</mat-icon>
+      <span>Past Weather</span>
+    </button>
+    <button mat-menu-item (click)="updateWeather('archive')">
+      <mat-icon>archive</mat-icon>
+      <span>Archive Weather</span>
+    </button>
+  </ng-container>
+  <button mat-menu-item (click)="logout()">
+    <mat-icon>logout</mat-icon>
+    <span>Logout</span>
+  </button>
+</mat-menu>
+
+<!-- Burger Menu Content -->
+<div class="burger-menu-content" *ngIf="isBurgerMenuOpen()">
+  <div class="burger-header">
+    <h3>Menu</h3>
+    <button mat-icon-button (click)="toggleBurgerMenu()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <button mat-menu-item routerLink="/home">
+    <mat-icon>home</mat-icon>
+    <span>Home</span>
+  </button>
+  <button mat-menu-item routerLink="/cart">
+    <mat-icon>shopping_cart</mat-icon>
+    <span>Cart</span>
+  </button>
+  <ng-container *ngIf="isAdminOrWeatherManager">
+    <button mat-menu-item (click)="updateWeather('current')">
+      <mat-icon>cloud</mat-icon>
+      <span>Current Weather</span>
+    </button>
+    <button mat-menu-item (click)="updateWeather('past')">
+      <mat-icon>history</mat-icon>
+      <span>Past Weather</span>
+    </button>
+    <button mat-menu-item (click)="updateWeather('archive')">
+      <mat-icon>archive</mat-icon>
+      <span>Archive Weather</span>
+    </button>
+  </ng-container>
+  <ng-container *ngIf="isAuthenticated; else guestLinks">
+    <button mat-menu-item (click)="logout()">
+      <mat-icon>logout</mat-icon>
+      <span>Logout</span>
+    </button>
+  </ng-container>
   <ng-template #guestLinks>
-    <mat-menu #guestAccountMenu="matMenu">
-      <button mat-menu-item routerLink="/login">
-        <mat-icon>login</mat-icon>
-        <span>Login</span>
-      </button>
-      <button mat-menu-item routerLink="/register">
-        <mat-icon>person_add</mat-icon>
-        <span>Register</span>
-      </button>
-    </mat-menu>
-    <button mat-icon-button [matMenuTriggerFor]="guestAccountMenu" aria-label="Account Menu">
-      <mat-icon>account_circle</mat-icon>
+    <button mat-menu-item routerLink="/login">
+      <mat-icon>login</mat-icon>
+      <span>Login</span>
+    </button>
+    <button mat-menu-item routerLink="/register">
+      <mat-icon>person_add</mat-icon>
+      <span>Register</span>
     </button>
   </ng-template>
-</mat-toolbar>
+</div>
