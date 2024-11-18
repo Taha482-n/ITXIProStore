@@ -1,35 +1,54 @@
-# Project Overview
+# ITXiAngular
+
+## Project Overview
+
 ITXiAngular is a dynamic Angular application that showcases several key features including user authentication, role-based access control, third-party API integration (weather data), and a responsive user interface. The application follows best practices for UI/UX design, ensuring a seamless experience across various devices.
 
-Prerequisites
+## Prerequisites
+
 Before starting, make sure the following dependencies are installed:
 
-Node.js: Version 18.x or higher is required.
-Angular CLI: If Angular CLI is not installed globally, you can install it by running the following command:
-
-npm install -g @angular/cli
+- **Node.js**: Version 18.x or higher is required.
+- **Angular CLI**: If Angular CLI is not installed globally, you can install it by running the following command:
+  
+  ```bash
+  npm install -g @angular/cli
 
 If Angular CLI is already installed, you can proceed to install the project dependencies.
 
-# Installation
-1)Clone the repository to your local machine:
-  git clone <https://github.com/moewb1/text-search-project.git> //for hhtps
-            <git@github.com:moewb1/text-search-project.git> //for ssh
+## Installation
 
-2)Navigate to the project folder:
-  cd ItxiAngular
+1) **Clone the repository to your local machine:**
 
-3)Install the project dependencies:
-  npm install
+   Using HTTPS:
+
+```bash
+git clone https://github.com/moewb1/itxi_angular.git
+```
+  or using SSH:
+```bash
+git clone git@github.com:moewb1/itxi_angular.git
+```
+
+2)**Navigate to the project folder:**
+```bash
+cd ItxiAngular
+```
+
+3)**Install the project dependencies:**
+
+```bash
+npm install
+```
 
 # Development Server
 To run the development server, use the following command:
-  ng serve
+ng serve
 Once the server starts, you can open your browser and navigate to http://localhost:4200/ to see the application. The server will automatically reload when you make changes to any source files.
 
 # Running Unit Tests
 The project includes unit tests for all components and services. To run the tests, use the following command:
-  ng test
+ng test
 This will execute the unit tests using Karma and display the results in the console.
 
 # Features
@@ -68,31 +87,36 @@ Angular Material: The project uses Angular Material for UI components, providing
 
 # Directory Structure
 
+``` ruby
 src/
   app/
-    components/         # Contains reusable UI components (e.g., headers, footers, product cards, etc.)
-    pages/              # Contains page components (e.g., home, cart, manage-users, etc.)
-    services/           # Contains all services (e.g., auth, product, cart, weather)
-    models/             # Contains data models (e.g., product, user)
-    app.module.ts       # Main application module
-  assets/
-    images/             # Contains images used throughout the app
-  environments/         # Contains environment-specific configurations (e.g., production, development)
+    models/               # Contains data models (e.g., product, user)
+    components/           # Contains reusable UI components (e.g., footer, cart-table, search-bar, product-card, users-table, header)
+    pages/                # Contains page components (e.g., home, cart, manage-users, login, register, access-denied)
+    services/             # Contains all services (e.g., auth, product, cart, weather)
+    environments/         # Contains environment-specific configurations (e.g., production, development)
+    main.ts               # Main entry point for the Angular application (no app.module.ts, app initialized directly in this file)
+  assets/                  # Contains images and other static assets used throughout the app
+  guards/                  # Contains route guards for protecting routes
 
-# Services
+```
+## Services
+
 The application relies on various services to handle different functionalities:
-Authentication Service: Handles user login, signup, and role management using Firebase Authentication.
-Product Service: Manages product data, including fetching products from the server, adding/removing from the cart, and pagination.
-Weather Service: Fetches weather data from the Open-Meteo API and provides it to the UI.
-Cart Service: Manages the cart state, including adding/removing items and calculating total price.
 
-# Unit Testing
+- **Authentication Service**: Handles user login, signup, and role management using Firebase Authentication.
+- **Product Service**: Manages product data, including fetching products from the server, adding/removing from the cart, and pagination.
+- **Weather Service**: Fetches weather data from the Open-Meteo API and provides it to the UI.
+- **Cart Service**: Manages the cart state, including adding/removing items and calculating total price.
+
+## Unit Testing
+
 All components and services have been thoroughly unit-tested. The tests ensure that each component functions as expected and that all services handle their tasks correctly. Unit tests are organized by component and service, and they cover:
 
-Component Rendering: Ensures that all UI components render correctly.
-Event Emission: Tests user interaction events, such as button clicks and role changes.
-Service Logic: Verifies the correct operation of services, including API requests and state management.
+- **Component Rendering**: Ensures that all UI components render correctly.
+- **Event Emission**: Tests user interaction events, such as button clicks and role changes.
+- **Service Logic**: Verifies the correct operation of services, including API requests and state management.
 
-# Conclusion
+## Conclusion
 
 The ITXiAngular project provides a robust, feature-rich platform with modern design practices, role-based access, and integration with third-party services such as the Open-Meteo API. The application utilizes standalone components and signals for efficient state management, alongside the bootstrap application approach for optimal performance. It is fully responsive, ensuring a seamless experience for users on all devices.
