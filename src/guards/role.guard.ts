@@ -1,7 +1,7 @@
 // src/app/guards/role.guard.ts
 import { Injectable } from '@angular/core';
 import { CanActivate, Router, ActivatedRouteSnapshot } from '@angular/router';
-import { UserService } from '../services/user.service';
+import { UserService } from '../app/services/user.service';
 
 @Injectable({
   providedIn: 'root',

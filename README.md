@@ -31,6 +31,9 @@ Run the following command to execute the unit tests using Karma:
 Authentication
 Login/Signup: Users can log in or create accounts.
 Role Management: Admins can assign roles (e.g., "user", "weather-manager").
+use this credentials to login as an admin:
+email: moetassem.wehbe.01@gmail.com
+password: m20012001w
 
 User Roles
 Admin: Manage roles, weather data, and products.

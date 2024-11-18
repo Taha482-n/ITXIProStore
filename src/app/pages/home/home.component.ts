@@ -1,8 +1,8 @@
 import { Component, OnInit, signal, computed } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Firestore, doc, getDoc } from '@angular/fire/firestore';
-import { CardComponent } from '../card/card.component';
-import { ProductCardComponent } from '../product-card/product-card.component';
+import { CardComponent } from '../../components/card/card.component';
+import { ProductCardComponent } from '../../components/product-card/product-card.component';
 import { CommonModule } from '@angular/common';
 import { Product } from '../../models/product.model';
 import { CartService } from '../../services/cart.service';

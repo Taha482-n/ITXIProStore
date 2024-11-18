@@ -15,8 +15,8 @@ interface User {
 
 @Component({
   selector: 'app-admin',
-  templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.css'],
+  templateUrl: './manage-users.component.html',
+  styleUrls: ['./manage-users.component.css'],
   standalone: true,
   imports: [
     MatTableModule,

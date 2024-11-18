@@ -6,7 +6,11 @@
   <span class="spacer"></span>
 
   <!-- Cart Icon with Badge -->
-  <button mat-icon-button routerLink="/cart" [matBadge]="cartItemCount || 0" matBadgeColor="accent" matBadgeHidden="cartItemCount === 0">
+  <button mat-icon-button
+          routerLink="/cart"
+          [matBadge]="cartItemCount() || 0"
+          matBadgeColor="accent"
+          matBadgeHidden="cartItemCount() === 0">
     <mat-icon>shopping_cart</mat-icon>
   </button>
 

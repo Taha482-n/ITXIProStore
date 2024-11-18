@@ -12,14 +12,16 @@ export class CartService {
   addToCart(product: Product) {
     const currentCart = [...this.cartItems()];
     const itemIndex = currentCart.findIndex((item) => item.product.id === product.id);
-
+  
     if (itemIndex > -1) {
       currentCart[itemIndex].quantity += 1;
     } else {
       currentCart.push({ product, quantity: 1 });
     }
     this.cartItems.set(currentCart);
+    console.log('Cart Updated:', this.cartItems());
   }
+  
 
   removeFromCart(productId: number) {
     const updatedCart = this.cartItems().filter((item) => item.product.id !== productId);

@@ -3,7 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { AuthGuard } from './auth.guard';
 import { Router } from '@angular/router';
 import { Auth } from '@angular/fire/auth';
-import { MockAuth } from '../mocks/auth.mock';
+import { MockAuth } from '../app/mocks/auth.mock';
 
 describe('AuthGuard', () => {
   let guard: AuthGuard;

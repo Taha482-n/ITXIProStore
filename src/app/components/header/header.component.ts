@@ -1,5 +1,4 @@
-// src/app/components/header/header.component.ts
-import { Component } from '@angular/core';
+import { Component, OnInit, signal, computed } from '@angular/core';
 import { Auth, signOut } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
@@ -27,7 +26,14 @@ import { MatBadgeModule } from '@angular/material/badge';
     MatBadgeModule,
   ],
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
+  // Reactive cart item count using Angular Signals
+  cartItemCount = computed(() => {
+    const count = this.cartService.cartItems().reduce((acc, item) => acc + item.quantity, 0);
+    console.log('Cart Item Count Updated:', count); // Log the computed value
+    return count;
+  });
+
   constructor(
     private auth: Auth,
     private router: Router,
@@ -35,8 +41,10 @@ export class HeaderComponent {
     public cartService: CartService
   ) {}
 
-  get cartItemCount(): number {
-    return this.cartService.totalItems;
+  ngOnInit() {
+    // Log initial cart items and item count for debugging
+    console.log('Initial Cart Items:', this.cartService.cartItems());
+    console.log('Initial Cart Item Count:', this.cartItemCount());
   }
 
   get userRole(): string | null {
