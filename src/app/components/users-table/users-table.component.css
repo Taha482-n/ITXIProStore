@@ -1,0 +1,43 @@
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th.mat-header-cell {
+  text-align: left;
+  padding: 12px 16px;
+  font-size: 1rem;
+  font-weight: 600;
+  background-color: #2766DA;
+  color: #ffffff;
+}
+
+td.mat-cell {
+  padding: 12px 16px;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+tr.mat-row:nth-child(even) td {
+  background-color: #f4f6f9;
+}
+
+tr.mat-row:hover td {
+  background-color: #eef3fc;
+}
+
+.role-select-field {
+  width: 100%;
+}
+
+button.mat-raised-button.color-warn {
+  background-color: #ff5252;
+  color: #ffffff;
+  font-weight: bold;
+  border-radius: 4px;
+}
+
+button.mat-raised-button.color-warn:hover {
+  background-color: #e53935;
+}

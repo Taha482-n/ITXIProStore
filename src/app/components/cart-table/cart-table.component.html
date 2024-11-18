@@ -1,0 +1,43 @@
+<div class="table-container">
+  <table>
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Subtotal</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of cartItems">
+        <td>
+          <div class="product-info">
+            <img [src]="item.product.image" alt="{{ item.product.title }}" class="product-image" />
+            <div class="product-details">
+              <span class="product-title">{{ item.product.title }}</span>
+              <span class="product-description">Short product description</span>
+            </div>
+          </div>
+        </td>
+        <td>${{ item.product.price }}</td>
+        <td>
+          <input type="number" [(ngModel)]="item.quantity" min="1" class="quantity-input" />
+        </td>
+        <td>${{ item.product.price * item.quantity }}</td>
+        <td>
+          <button mat-icon-button class="remove-icon" color="warn" (click)="onRemoveItem(item.product.id)">
+            <mat-icon>remove_circle</mat-icon>
+          </button>
+        </td>        
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="3" class="total-label">Total</td>
+        <td><strong>${{ totalPrice }}</strong></td>
+        <td></td>
+      </tr>
+    </tfoot>
+  </table>
+</div>

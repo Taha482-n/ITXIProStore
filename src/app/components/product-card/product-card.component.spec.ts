@@ -2,8 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ProductCardComponent } from './product-card.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
-import { Product } from '../../models/product.model';
 import { By } from '@angular/platform-browser';
+import { Product } from '../../models/product.model';
 
 describe('ProductCardComponent', () => {
   let component: ProductCardComponent;
@@ -11,49 +11,59 @@ describe('ProductCardComponent', () => {
 
   const mockProduct: Product = {
     id: 1,
-    title: 'Mock Product',
+    title: 'Test Product',
+    description: 'This is a test product description.',
     price: 100,
-    description: 'This is a mock product description.',
-    category: 'Mock Category',
-    image: 'mock-image-url',
+    category: 'Electronics',
+    image: 'test-image.jpg',
     rating: {
       rate: 4.5,
-      count: 10,
+      count: 120,
     },
   };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ProductCardComponent, MatCardModule, MatButtonModule],
+      imports: [MatCardModule, MatButtonModule, ProductCardComponent], // Include standalone component and dependencies
     }).compileComponents();
-
-    fixture = TestBed.createComponent(ProductCardComponent);
-    component = fixture.componentInstance;
-    component.product = mockProduct; // Set the input product
-    fixture.detectChanges(); // Trigger change detection
   });
 
-  it('should create the component', () => {
+  beforeEach(() => {
+    fixture = TestBed.createComponent(ProductCardComponent);
+    component = fixture.componentInstance;
+    component.product = mockProduct; // Provide a mock product input
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 
   it('should display the product title', () => {
-    const cardTitle = fixture.debugElement.query(By.css('mat-card-title')).nativeElement;
-    expect(cardTitle.textContent).toContain(mockProduct.title); // Check for title
+    const titleElement = fixture.debugElement.query(By.css('.product-title')).nativeElement;
+    expect(titleElement.textContent).toContain(mockProduct.title);
   });
 
-  it('should display the product description and price', () => {
-    const cardContent = fixture.debugElement.query(By.css('mat-card-content')).nativeElement;
-    expect(cardContent.textContent).toContain(mockProduct.description); // Check for description
-    expect(cardContent.textContent).toContain(`Price: $${mockProduct.price}`); // Check for price
+  it('should display the product description', () => {
+    const descriptionElement = fixture.debugElement.query(By.css('.product-description')).nativeElement;
+    expect(descriptionElement.textContent).toContain(mockProduct.description.slice(0, 100));
   });
 
-  it('should emit addToCart event when "Add to Cart" button is clicked', () => {
-    spyOn(component.addToCart, 'emit'); // Spy on addToCart emitter
+  it('should display the product price', () => {
+    const priceElement = fixture.debugElement.query(By.css('.product-price')).nativeElement;
+    expect(priceElement.textContent).toContain(`Price: $${mockProduct.price}`);
+  });
 
-    const addButton = fixture.debugElement.query(By.css('button')).nativeElement;
-    addButton.click();
+  it('should display the product image', () => {
+    const imageElement = fixture.debugElement.query(By.css('.image-container img')).nativeElement;
+    expect(imageElement.src).toContain(mockProduct.image);
+    expect(imageElement.alt).toBe(mockProduct.title);
+  });
 
-    expect(component.addToCart.emit).toHaveBeenCalledOnceWith(mockProduct); // Check emitter call
+  it('should emit the product when "Add to Cart" is clicked', () => {
+    spyOn(component.addToCart, 'emit');
+    const addToCartButton = fixture.debugElement.query(By.css('button')).nativeElement;
+    addToCartButton.click();
+    expect(component.addToCart.emit).toHaveBeenCalledWith(mockProduct);
   });
 });

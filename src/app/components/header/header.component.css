@@ -112,3 +112,21 @@
     display: none;
   }
 }
+
+/* Loading Spinner */
+.loading-spinner {
+  margin-right: 16px;
+  color: white;
+}
+
+/* Header Toolbar */
+.header-toolbar {
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  background-color: #2766DA;
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}

@@ -1,47 +1,35 @@
-/* General Styles */
-h2 {
-  font-size: 1.8em;
-  color: #2766DA;
-  font-weight: bold;
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-/* Search Bar Styles */
-/* Search Bar Styles */
-.search-container {
-  display: flex;
-  justify-content: center;
-  margin: 30px 0; /* Added more spacing */
-}
-
-.search-container input {
-  width: 100%;
-  max-width: 600px; /* Increased width for better visibility */
-  padding: 15px; /* Larger padding for a bigger field */
-  font-size: 1.1em; /* Increased font size for readability */
-  border: 1px solid #ddd;
-  border-radius: 10px; /* Slightly more rounded corners */
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  outline: none;
-  transition: box-shadow 0.3s ease, border-color 0.3s ease;
-}
-
-.search-container input:focus {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  border-color: #2766DA;
-}
-
 /* Products Container */
 .products-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
-  margin: 20px 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Default: 4 columns on large screens */
+  gap: 10px; /* Space between cards */
+  justify-items: center; /* Center items horizontally */
 }
 
-/* Load More Button */
+/* Card Styling */
+.products-container > * {
+  max-width: 300px; /* Consistent card width */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+  .products-container {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns for medium screens */
+    gap: 15px; /* Adjust spacing for smaller screens */
+  }
+}
+
+@media (max-width: 768px) {
+  .products-container {
+    margin: 0px 0;
+    grid-template-columns: 1fr; /* Single column layout for small screens */
+    gap: 0px; /* Smaller gaps for better spacing */
+  }
+}
+
+/* Center the "Load More" button */
 .load-more-container {
   text-align: center;
   margin-top: 30px;
@@ -55,9 +43,15 @@ h2 {
   border: none;
   cursor: pointer;
   border-radius: 8px;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .load-more-btn:hover {
   background-color: #1c4fa1;
+  transform: translateY(-3px); /* Adds a subtle hover effect */
+}
+
+.load-more-btn:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(39, 102, 218, 0.5);
 }

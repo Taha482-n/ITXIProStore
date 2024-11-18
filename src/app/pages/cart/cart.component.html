@@ -1,40 +1,18 @@
 <div class="cart-container">
-  <h2>Your Cart</h2>
   <div *ngIf="cartItems.length > 0; else emptyCart">
-    <div class="table-container">
-      <table>
-        <thead>
-          <tr>
-            <th>Product</th>
-            <th>Price</th>
-            <th>Quantity</th>
-            <th>Subtotal</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let item of cartItems">
-            <td>{{ item.product.title }}</td>
-            <td>${{ item.product.price }}</td>
-            <td>{{ item.quantity }}</td>
-            <td>${{ item.product.price * item.quantity }}</td>
-            <td>
-              <button mat-button class="remove-button" color="warn" (click)="removeItem(item.product.id)">
-                Remove
-              </button>
-            </td>
-          </tr>
-        </tbody>
-        <tfoot>
-          <tr>
-            <td colspan="3"><strong>Total</strong></td>
-            <td><strong>${{ totalPrice }}</strong></td>
-            <td></td>
-          </tr>
-        </tfoot>
-      </table>
-    </div>
-    <button mat-raised-button color="primary" (click)="proceedToCheckout()" [disabled]="!(auth.currentUser)">
+    <!-- Use the CartTableComponent -->
+    <app-cart-table
+      [cartItems]="cartItems"
+      [totalPrice]="totalPrice"
+      (removeItem)="removeItem($event)"
+    ></app-cart-table>
+    <button
+      mat-raised-button
+      color="primary"
+      class="checkout-button"
+      (click)="proceedToCheckout()"
+      [disabled]="!(auth.currentUser)"
+    >
       Proceed to Checkout
     </button>
   </div>

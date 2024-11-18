@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { AdminComponent } from './pages/manage-users/manage-users.component';
+import { ManageUsersComponent } from './pages/manage-users/manage-users.component';
 import { AccessDeniedComponent } from './pages/access-denied/access-denied.component';
 import { RoleGuard } from '../guards/role.guard';
 import { LoginComponent } from './pages/login/login.component';
@@ -10,7 +10,7 @@ import { CartComponent } from './pages/cart/cart.component';
 export const routes: Routes = [
   {
     path: 'admin',
-    component: AdminComponent,
+    component: ManageUsersComponent,
     canActivate: [RoleGuard],
     data: { roles: ['admin'] },
   },

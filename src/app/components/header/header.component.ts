@@ -1,4 +1,4 @@
-import { Component, OnInit, signal, computed, effect } from '@angular/core';
+import { Component, OnInit, signal, computed } from '@angular/core';
 import { Auth, signOut } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -8,6 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatBadgeModule } from '@angular/material/badge';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { WeatherService } from '../../services/weather.service';
 import { CartService } from '../../services/cart.service';
@@ -26,6 +27,7 @@ import { UserService } from '../../services/user.service';
     MatMenuModule,
     MatIconModule,
     MatBadgeModule,
+    MatProgressSpinnerModule,
   ],
 })
 export class HeaderComponent implements OnInit {
@@ -34,7 +36,8 @@ export class HeaderComponent implements OnInit {
   );
   currentWeather = signal<string | null>(null);
   isBurgerMenuOpen = signal<boolean>(false);
-  isSmallScreen = signal<boolean>(window.innerWidth <= 768); // Detect screen size
+  isSmallScreen = signal<boolean>(window.innerWidth <= 768);
+  isLoadingWeather = signal<boolean>(false); // Loader for weather updates
 
   constructor(
     private auth: Auth,
@@ -59,7 +62,7 @@ export class HeaderComponent implements OnInit {
   updateScreenSize() {
     this.isSmallScreen.set(window.innerWidth <= 768);
     if (!this.isSmallScreen()) {
-      this.isBurgerMenuOpen.set(false); // Automatically close the burger menu for larger screens
+      this.isBurgerMenuOpen.set(false);
     }
   }
 
@@ -77,16 +80,28 @@ export class HeaderComponent implements OnInit {
 
   updateWeather(option: string) {
     if (this.isAdminOrWeatherManager) {
+      this.isLoadingWeather.set(true); // Show loader
       this.weatherService.setWeatherOption(option);
-      this.weatherService.fetchWeatherData();
+      this.fetchAndSetWeather(); // Fetch and set weather data
     }
+  }
+
+  fetchAndSetWeather() {
+    this.weatherService.fetchWeatherData().then(() => {
+      const weatherData = this.weatherService.weatherCards();
+      if (weatherData.length > 0) {
+        const { temperature, time } = weatherData[0];
+        this.currentWeather.set(`Temp: ${temperature}, Time: ${time}`);
+      }
+      this.isLoadingWeather.set(false); // Hide loader after data is fetched
+    });
   }
 
   simplifiedWeather(): string | null {
     const current = this.currentWeather();
     if (current) {
       const parts = current.split(', ');
-      return parts[0]; // Only show "Temp: value"
+      return parts[0]; // Show only the temperature
     }
     return null;
   }

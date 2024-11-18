@@ -1,26 +1,27 @@
 import { Component } from '@angular/core';
 import { CartService } from '../../services/cart.service';
 import { Router } from '@angular/router';
-import { Auth, authState } from '@angular/fire/auth'; // Use authState for reactive user state
+import { Auth, authState } from '@angular/fire/auth';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
-import { MatSnackBar } from '@angular/material/snack-bar'; // Use snackbar for better UX
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { CartTableComponent } from '../../components/cart-table/cart-table.component';
 
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.css'],
   standalone: true,
-  imports: [CommonModule, MatButtonModule],
+  imports: [CommonModule, MatButtonModule, CartTableComponent],
 })
 export class CartComponent {
   user$ = authState(this.auth); // Reactive user state
 
   constructor(
-    public cartService: CartService, 
-    private router: Router, 
+    public cartService: CartService,
+    private router: Router,
     public auth: Auth,
-    private snackBar: MatSnackBar // Inject MatSnackBar for notifications
+    private snackBar: MatSnackBar
   ) {}
 
   get cartItems() {
@@ -32,19 +33,19 @@ export class CartComponent {
   }
 
   removeItem(productId: number) {
-    this.cartService.removeFromCart(productId);
-    this.snackBar.open('Item removed from cart', 'Close', { duration: 3000 }); // Snackbar for better UX
+    this.cartService.removeFromCart(productId); // Remove item
+    this.snackBar.open('Item removed from cart', 'Close', { duration: 3000 }); // Snackbar for feedback
   }
 
   proceedToCheckout() {
-    this.user$.subscribe(user => {
+    this.user$.subscribe((user) => {
       if (user) {
         this.snackBar.open('Order placed successfully! Payment on delivery.', 'Close', { duration: 3000 });
-        this.cartService.clearCart();
-        this.router.navigate(['/home']);
+        this.cartService.clearCart(); // Clear cart
+        this.router.navigate(['/home']); // Navigate to home
       } else {
         this.snackBar.open('Please log in to proceed to checkout.', 'Close', { duration: 3000 });
-        this.router.navigate(['/login']);
+        this.router.navigate(['/login']); // Navigate to login
       }
     });
   }

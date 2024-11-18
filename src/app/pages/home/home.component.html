@@ -1,12 +1,5 @@
 <!-- Search Bar -->
-<div class="search-container">
-  <input
-    type="text"
-    placeholder="Search for products..."
-    (input)="onSearchChange($event)"
-    class="search-bar"
-  />
-</div>
+<app-search-bar (searchChange)="searchQuery.set($event)"></app-search-bar>
 
 <!-- Product Cards -->
 <div class="products-container">
