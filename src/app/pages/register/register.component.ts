@@ -1,7 +1,12 @@
 import { Component } from '@angular/core';
 import { Auth, createUserWithEmailAndPassword } from '@angular/fire/auth';
 import { Firestore, doc, setDoc } from '@angular/fire/firestore';
-import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormGroup,
+  FormBuilder,
+  Validators,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { RouterModule, Router } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -51,7 +56,7 @@ export class RegisterComponent {
       const user = userCredential.user;
 
       // Assign 'admin' role to the specific email, 'user' role to others
-      const role = email === 'moetassem.wehbe.01@gmail.com' ? 'admin' : 'user';
+      const role = email === 'admin@gmail.com' ? 'admin' : 'user';
 
       // Save the user's role in Firestore
       await setDoc(doc(this.firestore, 'users', user.uid), {

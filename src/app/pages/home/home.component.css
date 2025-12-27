@@ -1,8 +1,17 @@
+/* Page Background */
+:host {
+  display: block;
+  min-height: 100%;
+  padding: 12px 14px 40px;
+  background: radial-gradient(circle at top, #1a2236 0%, #0f1526 45%, #0b1020 100%);
+  color: #e7edf7;
+}
+
 /* Products Container */
 .products-container {
   display: grid;
   grid-template-columns: repeat(4, 1fr); /* Default: 4 columns on large screens */
-  gap: 10px; /* Space between cards */
+  gap: 18px; /* Space between cards */
   justify-items: center; /* Center items horizontally */
 }
 
@@ -23,35 +32,37 @@
 
 @media (max-width: 768px) {
   .products-container {
-    margin: 0px 0;
+    margin: 0;
     grid-template-columns: 1fr; /* Single column layout for small screens */
-    gap: 0px; /* Smaller gaps for better spacing */
+    gap: 12px; /* Smaller gaps for better spacing */
   }
 }
 
 /* Center the "Load More" button */
 .load-more-container {
   text-align: center;
-  margin-top: 30px;
+  margin-top: 32px;
 }
 
 .load-more-btn {
   padding: 12px 25px;
   font-size: 1.1em;
-  background-color: #2766DA;
-  color: white;
+  background-color: #3b7bff;
+  color: #f8faff;
   border: none;
   cursor: pointer;
-  border-radius: 8px;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(3, 6, 12, 0.45);
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .load-more-btn:hover {
-  background-color: #1c4fa1;
-  transform: translateY(-3px); /* Adds a subtle hover effect */
+  background-color: #2f6ee6;
+  transform: translateY(-2px); /* Adds a subtle hover effect */
+  box-shadow: 0 14px 26px rgba(3, 6, 12, 0.55);
 }
 
 .load-more-btn:focus {
   outline: none;
-  box-shadow: 0 0 5px rgba(39, 102, 218, 0.5);
+  box-shadow: 0 0 0 3px rgba(59, 123, 255, 0.35);
 }

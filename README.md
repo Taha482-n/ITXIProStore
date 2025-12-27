@@ -1,8 +1,8 @@
-# ITXiAngular
+# ITXIStore
 
 ## Project Overview
 
-ITXiAngular is a dynamic Angular application that showcases several key features including user authentication, role-based access control, third-party API integration (weather data), and a responsive user interface. The application follows best practices for UI/UX design, ensuring a seamless experience across various devices.
+ITXIStore is a dynamic Angular application that showcases several key features including user authentication, role-based access control, third-party API integration (weather data), and a responsive user interface. The application follows best practices for UI/UX design, ensuring a seamless experience across various devices.
 
 ## Prerequisites
 
@@ -10,27 +10,31 @@ Before starting, make sure the following dependencies are installed:
 
 - **Node.js**: Version 18.x or higher is required.
 - **Angular CLI**: If Angular CLI is not installed globally, you can install it by running the following command:
-  
+
   ```bash
   npm install -g @angular/cli
+  ```
 
 If Angular CLI is already installed, you can proceed to install the project dependencies.
 
 ## Installation
 
-1) **Clone the repository to your local machine:**
+1. **Clone the repository to your local machine:**
 
    Using HTTPS:
 
 ```bash
 git clone https://github.com/moewb1/itxi_angular.git
 ```
-  or using SSH:
+
+or using SSH:
+
 ```bash
 git clone git@github.com:moewb1/itxi_angular.git
 ```
 
 2)**Navigate to the project folder:**
+
 ```bash
 cd ItxiAngular
 ```
@@ -41,82 +45,68 @@ cd ItxiAngular
 npm install
 ```
 
-# Development Server
-To run the development server, use the following command:
+## Development Server
+
+To start the development server, run:
 ng serve
-Once the server starts, you can open your browser and navigate to http://localhost:4200/ to see the application. The server will automatically reload when you make changes to any source files.
+After it launches, open your browser and go to http://localhost:4200/ to view the app. Any changes you make to the source code will trigger an automatic reload.
 
-# Running Unit Tests
-The project includes unit tests for all components and services. To run the tests, use the following command:
+## Running Unit Tests
+
+The project includes unit tests covering all components and services. To execute them, run:
 ng test
-This will execute the unit tests using Karma and display the results in the console.
+Karma will run the test suite and show the results in the terminal.
 
-# Features
-
+## Features
 
 Authentication
-Login/Signup: Users can log in with an existing account or create a new one.
-Role Management: Admins can assign roles such as "user", "weather-manager", or "admin" to different users.
-Admin Credentials: You can log in as an admin using the following credentials:
-Email: moetassem.wehbe.01@gmail.com
-Password: m20012001w
-
+Login/Signup: Users can sign in with an existing account or register a new one.
+Role Management: Admins can assign roles such as "user", "weather-manager", or "admin" to other users.
+Admin Credentials: You can access an admin account using these credentials:
+Email: admin@gmail.com
+Password: 123qweasd!@#
 
 User Roles
-Admin: Admin users can manage roles, update weather data, and manage products within the application.
-Weather-Manager: Weather managers can update the visibility and formats of weather data displayed in the application.
-User: Regular users can browse products, add them to the cart, and proceed to checkout (login required for checkout).
-
+Admin: Can manage user roles, update weather information, and manage products across the application.
+Weather-Manager: Can control weather data visibility and the formats used to display weather information.
+User: Standard users can browse products, add items to the cart, and complete checkout (checkout requires login).
 
 Product Management
-Product Cards: Display details such as title, price, and description for each product. The cards are dynamically populated and styled.
-Cart: Users can add products to the cart and view the contents. The cart displays product details, quantity, and total price.
-
+Product Cards: Show product details including title, price, and description. Cards are styled and filled dynamically from data.
+Cart: Users can add items to the cart and view everything inside it. The cart displays product information, quantity, and the total cost.
 
 Weather Information
-The application integrates with the Open-Meteo API to fetch and display weather data. The weather features include:
-Current Weather: Displaying real-time weather information.
-
+The app integrates with the Open-Meteo API to retrieve and present weather details. Weather functionality includes:
+Current Weather: Shows up-to-date, real-time weather information.
 
 UI Design
-The application features a responsive layout optimized for mobile and desktop views. Key design features include:
-Mobile-Friendly Design: The application adapts to different screen sizes and provides a seamless experience across devices.
-Component-Based Architecture: Reusable components such as the header, footer, and product cards ensure maintainability and ease of updates.
-Angular Material: The project uses Angular Material for UI components, providing a consistent and modern look across all platforms.
+The interface is responsive and designed for both mobile and desktop screens. Main UI highlights include:
+Mobile-Friendly Design: Layout adjusts smoothly across different screen sizes for a consistent experience.
+Component-Based Architecture: Reusable elements like the header, footer, and product cards improve maintainability and make updates easier.
+Angular Material: Uses Angular Material components to deliver a modern, consistent visual style on all platforms.
 
-
-# Directory Structure
-
-``` ruby
-src/
-  app/
-    models/               # Contains data models (e.g., product, user)
-    components/           # Contains reusable UI components (e.g., footer, cart-table, search-bar, product-card, users-table, header)
-    pages/                # Contains page components (e.g., home, cart, manage-users, login, register, access-denied)
-    services/             # Contains all services (e.g., auth, product, cart, weather)
-    environments/         # Contains environment-specific configurations (e.g., production, development)
-    main.ts               # Main entry point for the Angular application (no app.module.ts, app initialized directly in this file)
-  assets/                  # Contains images and other static assets used throughout the app
-  guards/                  # Contains route guards for protecting routes
-
-```
 ## Services
 
-The application relies on various services to handle different functionalities:
+The application uses multiple services to support different parts of the system:
 
-- **Authentication Service**: Handles user login, signup, and role management using Firebase Authentication.
-- **Product Service**: Manages product data, including fetching products from the server, adding/removing from the cart, and pagination.
-- **Weather Service**: Fetches weather data from the Open-Meteo API and provides it to the UI.
-- **Cart Service**: Manages the cart state, including adding/removing items and calculating total price.
+- **Authentication Service**: Manages signup, login, and role management via Firebase Authentication.
+
+- **Product Service**: Handles product data operations such as retrieving products, adding/removing cart items, and pagination.
+
+- **Weather Service**: Requests weather data from the Open-Meteo API and supplies it to the UI.
+
+Cart Service: Controls cart state, including adding/removing items and computing the total amount.
 
 ## Unit Testing
 
-All components and services have been thoroughly unit-tested. The tests ensure that each component functions as expected and that all services handle their tasks correctly. Unit tests are organized by component and service, and they cover:
+Each service and component has been fully unit-tested. The test suite confirms correct behavior across the app, and tests are grouped by component/service. Coverage includes:
 
-- **Component Rendering**: Ensures that all UI components render correctly.
-- **Event Emission**: Tests user interaction events, such as button clicks and role changes.
-- **Service Logic**: Verifies the correct operation of services, including API requests and state management.
+- **Component Rendering**: Confirms UI components display properly.
+
+- **Event Emission**: Validates user-driven actions like button clicks and role updates.
+
+- **Service Logic**: Ensures services work correctly, including API calls and state handling.
 
 ## Conclusion
 
-The ITXiAngular project provides a robust, feature-rich platform with modern design practices, role-based access, and integration with third-party services such as the Open-Meteo API. The application utilizes standalone components and signals for efficient state management, alongside the bootstrap application approach for optimal performance. It is fully responsive, ensuring a seamless experience for users on all devices.
+The ITXIStore project delivers a powerful, modern platform featuring role-based access, a polished UI, and third-party integration with the Open-Meteo API. It is built with standalone components and signals for efficient state management, and it uses the bootstrap application approach to improve performance. The design is fully responsive, providing a smooth experience across all device types.

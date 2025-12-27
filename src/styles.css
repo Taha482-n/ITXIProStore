@@ -1,6 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
+:root {
+  --app-bg: #0b1020;
+  --surface: #121a2b;
+  --surface-2: #172236;
+  --border: #22314a;
+  --text: #e7edf7;
+  --muted: #9aa7bd;
+  --accent: #3b7bff;
+  --danger: #ff6b6b;
+  --shadow: 0 14px 30px rgba(4, 8, 16, 0.5);
+}
+
 *,
 *::before,
 *::after {
@@ -16,18 +28,20 @@ html, body {
   width: 100%;
   height: 100%;
   font-family: Arial, sans-serif; /* Set a default font family */
+  background: var(--app-bg);
+  color: var(--text);
   overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
 /* Header styling */
 .header-toolbar {
   width: 100%;
-  background-color: #2766DA; /* Primary color */
-  color: #ffffff;
+  background-color: #10182a;
+  color: var(--text);
   display: flex;
   align-items: center;
   padding: 0 16px; /* Adjust side padding as needed */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow);
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -37,8 +51,8 @@ html, body {
 /* Footer styling */
 .footer {
   width: 100%;
-  background-color: #2766DA; /* Primary color matching header */
-  color: #ffffff;
+  background-color: #10182a;
+  color: var(--text);
   text-align: center;
   padding: 10px 0;
   position: fixed;
@@ -49,9 +63,11 @@ html, body {
 
 /* Ensure main content fits between header and footer */
 main {
-  padding-top: 60px; /* Adjust according to header height */
+  padding-top: 0;
   padding-bottom: 40px; /* Adjust according to footer height */
   min-height: calc(100vh - 100px); /* Ensures main content fits viewport */
+  background: var(--app-bg);
+  color: var(--text);
 }
 
 /* Responsive adjustments */
@@ -60,7 +76,24 @@ main {
     padding: 8px;
   }
   main {
-    padding-top: 50px;
+    padding-top: 0;
     padding-bottom: 30px;
   }
+}
+
+/* Dark theme for Angular Material menus */
+.mat-mdc-menu-panel,
+.mat-menu-panel {
+  background-color: #161c2f;
+  color: var(--text);
+}
+
+.mat-mdc-menu-item,
+.mat-menu-item {
+  color: var(--text);
+}
+
+.mat-mdc-menu-item:hover,
+.mat-menu-item:hover {
+  background: rgba(59, 123, 255, 0.12);
 }

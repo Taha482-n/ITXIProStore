@@ -1,16 +1,24 @@
 <mat-toolbar color="primary" class="header-toolbar">
   <!-- Logo -->
-  <button mat-button class="logo" routerLink="/home">ITXI</button>
+  <button mat-button class="logo" routerLink="/home">ITXIStore</button>
   <span class="spacer"></span>
 
   <!-- Weather Display -->
-  <div class="weather-display">
-    <mat-icon>cloud</mat-icon>
-    <span *ngIf="!isSmallScreen()">{{ currentWeather() }}</span>
-    <span *ngIf="isSmallScreen()">{{ simplifiedWeather() }}</span>
+  <div class="weather-beacon" [class.is-loading]="isLoadingWeather()">
+    <div class="beacon-core">
+      <span class="beacon-ring"></span>
+      <span class="beacon-dot"></span>
+    </div>
+    <div class="beacon-stack">
+      <span class="beacon-label">Signal</span>
+      <span class="beacon-divider">|</span>
+      <span class="beacon-temp">{{ currentWeather()?.temperature || '--' }}</span>
+      <span class="beacon-divider">/</span>
+      <span class="beacon-time">{{ weatherTimeLabel() }}</span>
+    </div>
     <mat-progress-spinner
       *ngIf="isLoadingWeather()"
-      diameter="20"
+      diameter="18"
       mode="indeterminate"
     ></mat-progress-spinner>
   </div>
@@ -22,9 +30,65 @@
       <span *ngIf="cartItemCount() > 0" class="badge">{{ cartItemCount() }}</span>
     </button>
     <!-- Account Menu -->
-    <button mat-icon-button [matMenuTriggerFor]="accountMenu" aria-label="Account Menu">
-      <mat-icon>account_circle</mat-icon>
-    </button>
+    <div class="account-trigger">
+      <button
+        mat-icon-button
+        class="account-button"
+        aria-label="Account Menu"
+        (click)="toggleAccountPanel()"
+      >
+        <mat-icon>account_circle</mat-icon>
+      </button>
+      <div class="account-panel" *ngIf="isAccountPanelOpen()">
+        <div class="panel-header">
+          <div class="panel-avatar">
+            <mat-icon>shield</mat-icon>
+          </div>
+          <div class="panel-header-text">
+            <span class="panel-title">Account Hub</span>
+            <span class="panel-subtitle">{{ isAuthenticated ? (userRole || 'user') : 'Guest' }}</span>
+          </div>
+        </div>
+        <ng-container *ngIf="isAuthenticated; else guestPanel">
+          <div class="panel-actions">
+            <ng-container *ngIf="isAdminOrWeatherManager">
+              <button mat-button class="panel-action" routerLink="/admin" (click)="closeAccountPanel()">
+                <mat-icon>supervisor_account</mat-icon>
+                <span>Manage Users</span>
+              </button>
+              <button mat-button class="panel-action" (click)="updateWeather('current'); closeAccountPanel()">
+                <mat-icon>cloud</mat-icon>
+                <span>Current Weather</span>
+              </button>
+              <button mat-button class="panel-action" (click)="updateWeather('past'); closeAccountPanel()">
+                <mat-icon>history</mat-icon>
+                <span>Past Weather</span>
+              </button>
+              <button mat-button class="panel-action" (click)="updateWeather('archive'); closeAccountPanel()">
+                <mat-icon>archive</mat-icon>
+                <span>Archive Weather</span>
+              </button>
+            </ng-container>
+            <button mat-button class="panel-action logout" (click)="logout(); closeAccountPanel()">
+              <mat-icon>logout</mat-icon>
+              <span>Logout</span>
+            </button>
+          </div>
+        </ng-container>
+        <ng-template #guestPanel>
+          <div class="panel-actions">
+            <button mat-button class="panel-action" routerLink="/login" (click)="closeAccountPanel()">
+              <mat-icon>login</mat-icon>
+              <span>Login</span>
+            </button>
+            <button mat-button class="panel-action" routerLink="/register" (click)="closeAccountPanel()">
+              <mat-icon>person_add</mat-icon>
+              <span>Register</span>
+            </button>
+          </div>
+        </ng-template>
+      </div>
+    </div>
   </div>
 
   <!-- Burger Menu Button for Small Screens -->
@@ -33,43 +97,7 @@
   </button>
 </mat-toolbar>
 
-<!-- Account Menu for Larger Screens -->
-<mat-menu #accountMenu="matMenu">
-  <ng-container *ngIf="isAuthenticated; else guestLinks">
-    <ng-container *ngIf="isAdminOrWeatherManager">
-      <button mat-menu-item routerLink="/admin">
-        <mat-icon>supervisor_account</mat-icon>
-        <span>Manage Users</span>
-      </button>
-      <button mat-menu-item (click)="updateWeather('current')">
-        <mat-icon>cloud</mat-icon>
-        <span>Current Weather</span>
-      </button>
-      <button mat-menu-item (click)="updateWeather('past')">
-        <mat-icon>history</mat-icon>
-        <span>Past Weather</span>
-      </button>
-      <button mat-menu-item (click)="updateWeather('archive')">
-        <mat-icon>archive</mat-icon>
-        <span>Archive Weather</span>
-      </button>
-    </ng-container>
-    <button mat-menu-item (click)="logout()">
-      <mat-icon>logout</mat-icon>
-      <span>Logout</span>
-    </button>
-  </ng-container>
-  <ng-template #guestLinks>
-    <button mat-menu-item routerLink="/login">
-      <mat-icon>login</mat-icon>
-      <span>Login</span>
-    </button>
-    <button mat-menu-item routerLink="/register">
-      <mat-icon>person_add</mat-icon>
-      <span>Register</span>
-    </button>
-  </ng-template>
-</mat-menu>
+<div class="account-scrim" *ngIf="isAccountPanelOpen()" (click)="closeAccountPanel()"></div>
 
 <!-- Burger Menu Content for Smaller Screens -->
 <div class="burger-menu-content" *ngIf="isBurgerMenuOpen()">

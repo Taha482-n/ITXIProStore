@@ -17,7 +17,7 @@
   top: 50%; /* Center vertically */
   transform: translateY(-50%); /* Center alignment fix */
   font-size: 1.5rem;
-  color: #888; /* Subtle icon color */
+  color: #9aa7bd; /* Subtle icon color */
   pointer-events: none; /* Prevent interaction with the icon */
 }
 
@@ -26,17 +26,23 @@
   width: 100%;
   padding: 15px 15px 15px 50px; /* Padding for the icon space */
   font-size: 1.1em;
-  border: 1px solid #ddd;
+  color: #e7edf7;
+  background: #121a2b;
+  border: 1px solid #243149;
   border-radius: 10px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 20px rgba(3, 6, 12, 0.35);
   outline: none;
   transition: box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
+.search-bar::placeholder {
+  color: #8e9ab1;
+}
+
 /* Focus State for Search Bar */
 .search-bar:focus {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  border-color: #2766DA;
+  box-shadow: 0 14px 28px rgba(3, 6, 12, 0.5);
+  border-color: #3b7bff;
 }
 
 /* Responsive Adjustments */

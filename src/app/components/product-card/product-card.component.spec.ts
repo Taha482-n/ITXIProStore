@@ -51,7 +51,7 @@ describe('ProductCardComponent', () => {
 
   it('should display the product price', () => {
     const priceElement = fixture.debugElement.query(By.css('.product-price')).nativeElement;
-    expect(priceElement.textContent).toContain(`Price: $${mockProduct.price}`);
+    expect(priceElement.textContent).toContain(`$${mockProduct.price.toFixed(2)}`);
   });
 
   it('should display the product image', () => {

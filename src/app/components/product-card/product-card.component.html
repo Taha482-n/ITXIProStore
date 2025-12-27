@@ -2,16 +2,31 @@
   <div class="image-container">
     <img mat-card-image [src]="product.image" alt="{{ product.title }}" />
   </div>
-  <mat-card-title class="product-title">
-    {{ product.title | slice: 0:50 }}{{ product.title.length > 50 ? '...' : '' }}
-  </mat-card-title>
-  <mat-card-content>
-    <p class="product-description">
-      {{ product.description | slice: 0:150 }}{{ product.description.length > 150 ? '...' : '' }}
-    </p>
-  </mat-card-content>
-  <mat-card-actions>
-    <p class="product-price">Price: ${{ product.price }}</p>
+  <div class="card-body">
+    <mat-card-title class="product-title">
+      {{ product.title | slice: 0:50 }}{{ product.title.length > 50 ? '...' : '' }}
+    </mat-card-title>
+    <div class="status-row">
+      <div class="product-rating">
+        <mat-icon *ngFor="let star of [1, 2, 3, 4, 5]">
+          {{ (product.rating?.rate || 0) >= star ? 'star' : 'star_border' }}
+        </mat-icon>
+        <span class="rating-value">{{ product.rating?.rate || 0 }}</span>
+      </div>
+      <span *ngIf="isInStock; else outOfStock" class="product-price">
+        ${{ product.price | number: '1.2-2' }}
+      </span>
+      <ng-template #outOfStock>
+        <span class="stock-status out-of-stock">Out of stock</span>
+      </ng-template>
+    </div>
+    <mat-card-content>
+      <p class="product-description">
+        {{ product.description | slice: 0:150 }}{{ product.description.length > 150 ? '...' : '' }}
+      </p>
+    </mat-card-content>
+  </div>
+  <mat-card-actions class="card-actions">
     <button mat-raised-button color="primary" (click)="onAddToCart()">Add to Cart</button>
   </mat-card-actions>
 </mat-card>

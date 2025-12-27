@@ -1,5 +1,17 @@
-<mat-card class="login-card">
-  <h2>Login</h2>
+<mat-card class="auth-card">
+  <div class="brand">
+    <span class="brand-pill">ITXIStore</span>
+    <span class="brand-tagline">Commerce + Weather Console</span>
+  </div>
+  <div class="card-header">
+    <h2>Welcome back</h2>
+    <p>Sign in to manage products, weather, and user access.</p>
+  </div>
+  <div class="card-meta">
+    <span class="meta-chip">Secure auth</span>
+    <span class="meta-chip">Role-based</span>
+    <span class="meta-chip">Live updates</span>
+  </div>
   <form [formGroup]="loginForm" (ngSubmit)="login()">
     <mat-form-field appearance="fill">
       <mat-label>Email</mat-label>
@@ -20,5 +32,5 @@
     <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">Login</button>
     <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
   </form>
-  <p>Don't have an account? <a routerLink="/register">Register here</a></p>
+  <p class="helper-text">Don't have an account? <a routerLink="/register">Register here</a></p>
 </mat-card>

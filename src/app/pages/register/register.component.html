@@ -1,5 +1,17 @@
-<mat-card class="register-card">
-  <h2>Register</h2>
+<mat-card class="auth-card">
+  <div class="brand">
+    <span class="brand-pill">ITXIStore</span>
+    <span class="brand-tagline">Commerce + Weather Console</span>
+  </div>
+  <div class="card-header">
+    <h2>Create your account</h2>
+    <p>Join ITXIStore to unlock personalized carts and role access.</p>
+  </div>
+  <div class="card-meta">
+    <span class="meta-chip">Quick setup</span>
+    <span class="meta-chip">Verified email</span>
+    <span class="meta-chip">Flexible roles</span>
+  </div>
   <form [formGroup]="registerForm" (ngSubmit)="register()">
     <mat-form-field appearance="fill">
       <mat-label>Email</mat-label>
@@ -20,5 +32,5 @@
     <button mat-raised-button color="primary" type="submit" [disabled]="registerForm.invalid">Register</button>
     <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
   </form>
-  <p>Already have an account? <a routerLink="/login">Login here</a></p>
+  <p class="helper-text">Already have an account? <a routerLink="/login">Login here</a></p>
 </mat-card>

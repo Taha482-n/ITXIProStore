@@ -1,12 +1,13 @@
 /* General Footer Styles */
 .footer {
-  background-color: #2766DA; /* Matches primary color */
-  color: #ffffff;
+  background: linear-gradient(120deg, #10182a 0%, #151f34 100%);
+  color: #e7edf7;
   padding: 16px 32px;
   text-align: center;
   position: relative;
   bottom: 0;
-  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 -8px 20px rgba(3, 6, 12, 0.45);
+  border-top: 1px solid #1e2a40;
 }
 
 .footer-content {
@@ -27,7 +28,7 @@
 
 /* Footer Hover Effect for Text */
 .footer-content p:hover {
-  color: #d4e1f3;
+  color: #9aa7bd;
   transition: color 0.3s ease;
 }
 

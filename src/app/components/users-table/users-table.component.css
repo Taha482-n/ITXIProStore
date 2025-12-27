@@ -1,43 +1,99 @@
 .user-table {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0;
   margin-top: 20px;
+  background: linear-gradient(180deg, #0f1a2f 0%, #0b1020 100%);
+  border: 1px solid #1f2a42;
+  border-radius: 14px;
+  overflow: hidden;
+  color: #e7edf7;
+  box-shadow: 0 12px 26px rgba(5, 10, 20, 0.45);
 }
 
-th.mat-header-cell {
+.user-table .mat-mdc-header-cell,
+.user-table .mat-header-cell,
+.user-table .mat-mdc-cell,
+.user-table .mat-cell {
+  border-bottom: 1px solid #1e2b44;
+}
+
+.user-table .mat-mdc-header-cell,
+.user-table .mat-header-cell {
   text-align: left;
   padding: 12px 16px;
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 600;
-  background-color: #2766DA;
-  color: #ffffff;
+  letter-spacing: 0.02em;
+  background-color: #17243a;
+  color: #f1f5ff;
 }
 
-td.mat-cell {
+.user-table .mat-mdc-cell,
+.user-table .mat-cell {
   padding: 12px 16px;
   font-size: 0.9rem;
-  color: #333;
+  color: #d6deee;
 }
 
-tr.mat-row:nth-child(even) td {
-  background-color: #f4f6f9;
+.user-table .mat-mdc-row:nth-child(odd) .mat-mdc-cell,
+.user-table .mat-row:nth-child(odd) .mat-cell {
+  background-color: #0f1628;
 }
 
-tr.mat-row:hover td {
-  background-color: #eef3fc;
+.user-table .mat-mdc-row:nth-child(even) .mat-mdc-cell,
+.user-table .mat-row:nth-child(even) .mat-cell {
+  background-color: #111a2c;
+}
+
+.user-table .mat-mdc-row:hover .mat-mdc-cell,
+.user-table .mat-row:hover .mat-cell {
+  background-color: #18263e;
 }
 
 .role-select-field {
   width: 100%;
+  --mdc-filled-text-field-container-color: #101a2c;
+  --mdc-filled-text-field-input-text-color: #e7edf7;
+  --mdc-filled-text-field-label-text-color: #b9c6de;
+  --mdc-filled-text-field-active-indicator-color: #22314a;
+  --mdc-filled-text-field-hover-active-indicator-color: #3b7bff;
+  --mdc-filled-text-field-focus-active-indicator-color: #3b7bff;
+  --mdc-filled-text-field-caret-color: #3b7bff;
+  --mdc-filled-text-field-focus-label-text-color: #cfe0ff;
 }
 
-button.mat-raised-button.color-warn {
-  background-color: #ff5252;
-  color: #ffffff;
-  font-weight: bold;
-  border-radius: 4px;
+button.mat-mdc-raised-button.mat-warn,
+button.mat-raised-button.mat-warn {
+  background-color: #ff6b6b;
+  color: #0b1020;
+  font-weight: 600;
+  border-radius: 10px;
+  box-shadow: 0 6px 16px rgba(255, 107, 107, 0.35);
 }
 
-button.mat-raised-button.color-warn:hover {
-  background-color: #e53935;
+button.mat-mdc-raised-button.mat-warn:hover,
+button.mat-raised-button.mat-warn:hover {
+  background-color: #ff8080;
+}
+
+mat-paginator {
+  margin-top: 16px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+:host ::ng-deep .mat-mdc-paginator {
+  background: #0f1628;
+  color: #dbe4f5;
+  border: 1px solid #1f2a42;
+}
+
+:host ::ng-deep .mat-mdc-paginator .mat-mdc-select-value,
+:host ::ng-deep .mat-mdc-paginator .mat-mdc-select-min-line {
+  color: #e7edf7;
+}
+
+:host ::ng-deep .mat-mdc-paginator .mat-mdc-icon-button {
+  color: #c7d4ee;
 }

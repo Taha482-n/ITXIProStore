@@ -34,10 +34,11 @@ export class HeaderComponent implements OnInit {
   cartItemCount = computed(() =>
     this.cartService.cartItems().reduce((acc, item) => acc + item.quantity, 0)
   );
-  currentWeather = signal<string | null>(null);
+  currentWeather = signal<{ temperature: string; time: string } | null>(null);
   isBurgerMenuOpen = signal<boolean>(false);
   isSmallScreen = signal<boolean>(window.innerWidth <= 768);
   isLoadingWeather = signal<boolean>(false); // Loader for weather updates
+  isAccountPanelOpen = signal<boolean>(false);
 
   constructor(
     private auth: Auth,
@@ -59,10 +60,20 @@ export class HeaderComponent implements OnInit {
     this.isBurgerMenuOpen.set(!this.isBurgerMenuOpen());
   }
 
+  toggleAccountPanel() {
+    this.isAccountPanelOpen.set(!this.isAccountPanelOpen());
+  }
+
+  closeAccountPanel() {
+    this.isAccountPanelOpen.set(false);
+  }
+
   updateScreenSize() {
     this.isSmallScreen.set(window.innerWidth <= 768);
     if (!this.isSmallScreen()) {
       this.isBurgerMenuOpen.set(false);
+    } else {
+      this.isAccountPanelOpen.set(false);
     }
   }
 
@@ -72,7 +83,7 @@ export class HeaderComponent implements OnInit {
       const weatherData = this.weatherService.weatherCards();
       if (weatherData.length > 0) {
         const { temperature, time } = weatherData[index];
-        this.currentWeather.set(`Temp: ${temperature}, Time: ${time}`);
+        this.currentWeather.set({ temperature, time });
         index = (index + 1) % weatherData.length;
       }
     }, 3000);
@@ -91,7 +102,7 @@ export class HeaderComponent implements OnInit {
       const weatherData = this.weatherService.weatherCards();
       if (weatherData.length > 0) {
         const { temperature, time } = weatherData[0];
-        this.currentWeather.set(`Temp: ${temperature}, Time: ${time}`);
+        this.currentWeather.set({ temperature, time });
       }
       this.isLoadingWeather.set(false); // Hide loader after data is fetched
     });
@@ -99,11 +110,16 @@ export class HeaderComponent implements OnInit {
 
   simplifiedWeather(): string | null {
     const current = this.currentWeather();
-    if (current) {
-      const parts = current.split(', ');
-      return parts[0]; // Show only the temperature
+    return current ? current.temperature : null;
+  }
+
+  weatherTimeLabel(): string {
+    const current = this.currentWeather();
+    if (!current?.time) {
+      return 'Syncing';
     }
-    return null;
+    const parts = current.time.split(',');
+    return (parts[1] || parts[0]).trim();
   }
 
   async logout() {
