@@ -24,19 +24,13 @@ If Angular CLI is already installed, you can proceed to install the project depe
    Using HTTPS:
 
 ```bash
-git clone https://github.com/moewb1/itxi_angular.git
-```
-
-or using SSH:
-
-```bash
-git clone git@github.com:moewb1/itxi_angular.git
+git clone https://github.com/Taha482-n/ITXIProStore.git
 ```
 
 2)**Navigate to the project folder:**
 
 ```bash
-cd ItxiAngular
+cd ITXIProStore-main
 ```
 
 3)**Install the project dependencies:**
@@ -50,12 +44,6 @@ npm install
 To start the development server, run:
 ng serve
 After it launches, open your browser and go to http://localhost:4200/ to view the app. Any changes you make to the source code will trigger an automatic reload.
-
-## Running Unit Tests
-
-The project includes unit tests covering all components and services. To execute them, run:
-ng test
-Karma will run the test suite and show the results in the terminal.
 
 ## Features
 
