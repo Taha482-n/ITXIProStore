@@ -85,6 +85,28 @@ The application uses multiple services to support different parts of the system:
 
 Cart Service: Controls cart state, including adding/removing items and computing the total amount.
 
+## Deployment
+
+The application is deployed using Firebase Hosting. The app is built in production mode and configured as a Single Page Application (SPA) with proper routing support.
+
+- **Live URL**:https://itxiprostore.web.app
+
+## Automated Testing (Playwright)
+
+Basic end-to-end (E2E) automated tests are implemented using Playwright
+
+1. **Make sure dependencies are installed:**
+
+```bash
+npm install
+```
+
+2)**Run E2E Tests (Headless)**
+
+```bash
+npm run test:e2e
+```
+
 ## Unit Testing
 
 Each service and component has been fully unit-tested. The test suite confirms correct behavior across the app, and tests are grouped by component/service. Coverage includes:
