@@ -22,7 +22,9 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.productService.fetchProducts(); // Fetch products when the component initializes
+    this.productService.fetchProducts();
+    console.log('Products on Home Init:', this.productService.products);
+    // Fetch products when the component initializes
   }
 
   get paginatedProducts() {
@@ -37,6 +39,6 @@ export class HomeComponent implements OnInit {
   }
 
   loadMoreProducts() {
-    this.productService.increasePagination(); // Increase pagination
+    this.productService.loadMoreProducts(); // Fetch next page from API
   }
 }

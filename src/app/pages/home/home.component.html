@@ -10,8 +10,15 @@
   ></app-product-card>
 </div>
 
+<div
+  class="no-products"
+  *ngIf="searchQuery().trim().length > 0 && paginatedProducts.length === 0"
+>
+  No products found
+</div>
+
 <!-- Load More Button -->
-<div class="load-more-container" *ngIf="paginatedProducts.length < productService.products.length">
+<div class="load-more-container" *ngIf="productService.hasMore">
   <button class="load-more-btn" (click)="loadMoreProducts()">
     Load More
   </button>

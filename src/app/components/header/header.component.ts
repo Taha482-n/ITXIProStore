@@ -100,6 +100,7 @@ export class HeaderComponent implements OnInit {
   fetchAndSetWeather() {
     this.weatherService.fetchWeatherData().then(() => {
       const weatherData = this.weatherService.weatherCards();
+      console.log('weatherData:', weatherData);
       if (weatherData.length > 0) {
         const { temperature, time } = weatherData[0];
         this.currentWeather.set({ temperature, time });

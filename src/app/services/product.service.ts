@@ -6,45 +6,103 @@ import { Product } from '../models/product.model';
   providedIn: 'root',
 })
 export class ProductService {
-  private productsSignal = signal<Product[]>(this.getProductsFromSession());
-  private loadedProductCount = signal<number>(8); // Initial count of loaded products
+  private readonly pageSize = 8;
+  private readonly storageKey = 'products';
+  private readonly pageKey = 'productsPage';
+  private productsSignal = signal<Product[]>(this.getProductsFromStorage());
+  private currentPage = signal<number>(this.getPageFromStorage());
+  private hasMoreSignal = signal<boolean>(this.getHasMoreFromStorage());
 
   constructor(private http: HttpClient) {}
 
-  // Fetch products from API if not already loaded
+  // Fetch the first page of products from the API
   fetchProducts() {
     if (this.productsSignal().length === 0) {
-      this.http.get<Product[]>('https://fakestoreapi.com/products').subscribe(
-        (data) => {
-          this.productsSignal.set(data);
-          this.saveProductsToSession(data); // Save to session storage
-        },
-        (error) => console.error('Error fetching products:', error)
-      );
+      this.currentPage.set(0);
+      this.hasMoreSignal.set(true);
+      this.loadPage(0, true);
     }
   }
 
   // Signal for paginated products
-  paginatedProducts = computed(() =>
-    this.productsSignal().slice(0, this.loadedProductCount())
-  );
+  paginatedProducts = computed(() => this.productsSignal());
 
-  // Increase the pagination count to load more products
-  increasePagination() {
-    const currentCount = this.loadedProductCount();
-    const newCount = currentCount + 4; // Load 5 more products
-    this.loadedProductCount.set(newCount);
+  // Load the next page of products from the API
+  loadMoreProducts() {
+    if (!this.hasMoreSignal()) {
+      return;
+    }
+    this.loadPage(this.currentPage() + 1);
   }
 
-  // Save products to session storage
-  private saveProductsToSession(products: Product[]) {
-    sessionStorage.setItem('products', JSON.stringify(products));
+  private loadPage(page: number, replace = false) {
+    const limit = this.pageSize;
+    const skip = page * this.pageSize;
+    console.log(`Loading page ${page}, skip: ${skip}, limit: ${limit}`);
+    this.http
+      .get<Product[]>(
+        `https://fakestoreapi.com/products?limit=${limit}&skip=${skip}`
+      )
+      .subscribe(
+        (data) => {
+          const nextItems = data;
+
+          if (nextItems.length === 0) {
+            this.hasMoreSignal.set(false);
+            if (replace) {
+              this.productsSignal.set([]);
+              this.saveProductsToStorage([], page);
+            }
+            return;
+          }
+
+          const combined = replace
+            ? nextItems
+            : [...this.productsSignal(), ...nextItems];
+
+          this.productsSignal.set(combined);
+          this.currentPage.set(page);
+          this.hasMoreSignal.set(nextItems.length === this.pageSize);
+          this.saveProductsToStorage(combined, page);
+        },
+        (error) => console.error('Error fetching products:', error)
+      );
   }
 
-  // Get products from session storage
-  private getProductsFromSession(): Product[] {
-    const storedProducts = sessionStorage.getItem('products');
+  private saveProductsToStorage(products: Product[], page: number) {
+    localStorage.setItem(this.storageKey, JSON.stringify(products));
+    localStorage.setItem(this.pageKey, String(page));
+  }
+
+  private getProductsFromStorage(): Product[] {
+    const storedProducts = localStorage.getItem(this.storageKey);
+    const storedPage = localStorage.getItem(this.pageKey);
+    if (!storedPage && storedProducts) {
+      localStorage.removeItem(this.storageKey);
+      return [];
+    }
     return storedProducts ? JSON.parse(storedProducts) : [];
+  }
+
+  private getPageFromStorage(): number {
+    const storedPage = localStorage.getItem(this.pageKey);
+    if (storedPage === null) {
+      return 0;
+    }
+    const parsedPage = Number(storedPage);
+    return Number.isNaN(parsedPage) ? 0 : parsedPage;
+  }
+
+  private getHasMoreFromStorage(): boolean {
+    const storedProducts = localStorage.getItem(this.storageKey);
+    if (!storedProducts) {
+      return true;
+    }
+    const parsedProducts = JSON.parse(storedProducts) as Product[];
+    if (parsedProducts.length === 0) {
+      return true;
+    }
+    return parsedProducts.length % this.pageSize === 0;
   }
 
   // Public methods to expose signals for use in components
@@ -54,5 +112,9 @@ export class ProductService {
 
   get paginated() {
     return this.paginatedProducts();
+  }
+
+  get hasMore() {
+    return this.hasMoreSignal();
   }
 }
