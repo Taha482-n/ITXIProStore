@@ -18,7 +18,13 @@
 </div>
 
 <!-- Load More Button -->
-<div class="load-more-container" *ngIf="productService.hasMore">
+<div
+  class="load-more-container"
+  *ngIf="
+    productService.hasMore &&
+    (searchQuery().trim().length === 0 || paginatedProducts.length > 0)
+  "
+>
   <button class="load-more-btn" (click)="loadMoreProducts()">
     Load More
   </button>
